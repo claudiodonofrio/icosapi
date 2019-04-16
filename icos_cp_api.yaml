@@ -21,71 +21,14 @@ servers:
 - url: http://127.0.0.1:9090/api
   description: local development server
 paths:
-  /stations/:
-    summary: Return a list of certified ICOS stations.
-    description: |-
-      A data collection is a group of data object as an official ICOS release.
-      Containing QA/QC observations from certified ICOS stations.
-    get:
-      summary: stations
-      description: without any parameters returns a list of all labeled and certified
-        ICOS stations.
-      operationId: icoscp.get_stations
-      responses:
-        200:
-          description: ICOS certified stations
-    parameters:
-    - name: country
-      in: query
-      description: |-
-        Returns a list of stations for a specific country.
-        https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#WO
-      schema:
-        type: string
-    - name: id
-      in: query
-      description: |-
-        Return the metadata about an ICOS station. The same information as seen online at the "landing page".
-        The landing page URL is returned with the parameter "url"
-      schema:
-        type: string
-    - name: theme
-      in: query
-      description: |
-        ICOS has three main distinction of themes, where green hous gas measurments are collected:
-        OTC (Ocean), ETC (Ecosystem), ATC (Atmosphere).
-      schema:
-        enum:
-        - ATC
-        - ETC
-        - OTC
-    - name: class
-      in: query
-      description: |
-        ICOS has two levels of station classifiction.
-        Class 2: a minimum common set of variables for each theme are collected.
-        Class 1: on top of Class 2, a defined extended set of variables is measured.
-      schema:
-        enum:
-        - "1"
-        - "2"
-    - name: bb
-      in: query
-      description: |-
-        bounding box. If you provide latitude and longitude of the top left corner and bottom right corner of a box, you will get a list of icos stations within that box.
-        Example: api/stations?bb=[50,-10, 30, 15]
-      schema:
-        type: array
-        items:
-          type: number
-  /collections/:
+  /collections:
     summary: Return a list of data collections.
     description: |+
       A collection is a manually created assembly of data objects
       for a specific theme, project or area of interest.
 
     get:
-      summary: collections
+      summary: A list of data collections
       description: |-
         No parameters returns a list of collection id's with a short description
         for each collection (what kind of data is included, size, data object id's.)
@@ -106,14 +49,14 @@ paths:
         query before you possibly get a list of thousands fo entries.
       schema:
         type: integer
-  /data/:
+  /data:
     summary: Return a list of data objects.
     description: |-
       ICOS provides access to high quality greenhouse gas measurements across europe.
       You may download and use  data for free, but don't forget to cite where the data
       is coming from.
     get:
-      summary: data
+      summary: A list of data objects
       description: "Download a list of data objects or if you provide a valid data\
         \ object ID, you\nget the information about that specific digital object.\n\
         If you don't set the paramater \"limit\", by default we set a limit of 25.\
@@ -183,13 +126,14 @@ paths:
         You can limit the returned list to N entries.
       schema:
         type: integer
-  /download/:
+  /download:
     summary: Download data.
     description: "Here you have acces to the measurements.\nYou can provide a single\
       \ data object ID, or an array of ID's to download\nmultiple files with one call.\n\
       \nExample for single file download: \napi/download?id=123456\n\nExample for\
       \ multifile download:\napi/download?id=[123456, 789123, 456123]"
     get:
+      summary: Download data
       description: Download specific data objects.
       operationId: icoscp.get_download
       responses:
@@ -217,10 +161,67 @@ paths:
         - zip
         - tar
         - bin
-  /stations/provisional/:
+  /stations:
+    summary: Return a list of certified ICOS stations.
+    description: |-
+      A data collection is a group of data object as an official ICOS release.
+      Containing QA/QC observations from certified ICOS stations.
+    get:
+      summary: A list of ICOS stations
+      description: without any parameters returns a list of all labeled and certified
+        ICOS stations.
+      operationId: icoscp.get_stations
+      responses:
+        200:
+          description: ICOS certified stations
+    parameters:
+    - name: country
+      in: query
+      description: |-
+        Returns a list of stations for a specific country.
+        https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#WO
+      schema:
+        type: string
+    - name: id
+      in: query
+      description: |-
+        Return the metadata about an ICOS station. The same information as seen online at the "landing page".
+        The landing page URL is returned with the parameter "url"
+      schema:
+        type: string
+    - name: theme
+      in: query
+      description: |
+        ICOS has three main distinction of themes, where green hous gas measurments are collected:
+        OTC (Ocean), ETC (Ecosystem), ATC (Atmosphere).
+      schema:
+        enum:
+        - ATC
+        - ETC
+        - OTC
+    - name: class
+      in: query
+      description: |
+        ICOS has two levels of station classifiction.
+        Class 2: a minimum common set of variables for each theme are collected.
+        Class 1: on top of Class 2, a defined extended set of variables is measured.
+      schema:
+        enum:
+        - "1"
+        - "2"
+    - name: bb
+      in: query
+      description: |-
+        bounding box. If you provide latitude and longitude of the top left corner and bottom right corner of a box, you will get a list of icos stations within that box.
+        Example: api/stations?bb=[50,-10, 30, 15]
+      schema:
+        type: array
+        items:
+          type: number
+  /stations/provisional:
     summary: Return a list if stations currently in the labeling process.
     get:
-      summary: provisional
+      summary: Povisional ICOS stations
       description: get a list of icos stations in the labeling process
       operationId: icoscp.get_provisional_stations
       responses:

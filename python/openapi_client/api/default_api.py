@@ -34,7 +34,7 @@ class DefaultApi(object):
         self.api_client = api_client
 
     def icoscp_get_collections(self, **kwargs):  # noqa: E501
-        """collections  # noqa: E501
+        """A list of data collections  # noqa: E501
 
         No parameters returns a list of collection id's with a short description for each collection (what kind of data is included, size, data object id's.)  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
@@ -57,7 +57,7 @@ class DefaultApi(object):
             return data
 
     def icoscp_get_collections_with_http_info(self, **kwargs):  # noqa: E501
-        """collections  # noqa: E501
+        """A list of data collections  # noqa: E501
 
         No parameters returns a list of collection id's with a short description for each collection (what kind of data is included, size, data object id's.)  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
@@ -110,7 +110,7 @@ class DefaultApi(object):
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/collections/', 'GET',
+            '/collections', 'GET',
             path_params,
             query_params,
             header_params,
@@ -126,7 +126,7 @@ class DefaultApi(object):
             collection_formats=collection_formats)
 
     def icoscp_get_data(self, **kwargs):  # noqa: E501
-        """data  # noqa: E501
+        """A list of data objects  # noqa: E501
 
         Download a list of data objects or if you provide a valid data object ID, you get the information about that specific digital object. If you don't set the paramater \"limit\", by default we set a limit of 25.  If you want \"all\" you need to set limit to -1. But be very careful, we have thousands of data objects.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
@@ -153,7 +153,7 @@ class DefaultApi(object):
             return data
 
     def icoscp_get_data_with_http_info(self, **kwargs):  # noqa: E501
-        """data  # noqa: E501
+        """A list of data objects  # noqa: E501
 
         Download a list of data objects or if you provide a valid data object ID, you get the information about that specific digital object. If you don't set the paramater \"limit\", by default we set a limit of 25.  If you want \"all\" you need to set limit to -1. But be very careful, we have thousands of data objects.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
@@ -218,7 +218,7 @@ class DefaultApi(object):
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/data/', 'GET',
+            '/data', 'GET',
             path_params,
             query_params,
             header_params,
@@ -234,7 +234,7 @@ class DefaultApi(object):
             collection_formats=collection_formats)
 
     def icoscp_get_download(self, id, **kwargs):  # noqa: E501
-        """icoscp_get_download  # noqa: E501
+        """Download data  # noqa: E501
 
         Download specific data objects.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
@@ -257,7 +257,7 @@ class DefaultApi(object):
             return data
 
     def icoscp_get_download_with_http_info(self, id, **kwargs):  # noqa: E501
-        """icoscp_get_download  # noqa: E501
+        """Download data  # noqa: E501
 
         Download specific data objects.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
@@ -315,7 +315,7 @@ class DefaultApi(object):
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/download/', 'GET',
+            '/download', 'GET',
             path_params,
             query_params,
             header_params,
@@ -331,7 +331,7 @@ class DefaultApi(object):
             collection_formats=collection_formats)
 
     def icoscp_get_provisional_stations(self, **kwargs):  # noqa: E501
-        """provisional  # noqa: E501
+        """Povisional ICOS stations  # noqa: E501
 
         get a list of icos stations in the labeling process  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
@@ -354,7 +354,7 @@ class DefaultApi(object):
             return data
 
     def icoscp_get_provisional_stations_with_http_info(self, **kwargs):  # noqa: E501
-        """provisional  # noqa: E501
+        """Povisional ICOS stations  # noqa: E501
 
         get a list of icos stations in the labeling process  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
@@ -407,7 +407,7 @@ class DefaultApi(object):
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/stations/provisional/', 'GET',
+            '/stations/provisional', 'GET',
             path_params,
             query_params,
             header_params,
@@ -423,7 +423,7 @@ class DefaultApi(object):
             collection_formats=collection_formats)
 
     def icoscp_get_stations(self, **kwargs):  # noqa: E501
-        """stations  # noqa: E501
+        """A list of ICOS stations  # noqa: E501
 
         without any parameters returns a list of all labeled and certified ICOS stations.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
@@ -449,7 +449,7 @@ class DefaultApi(object):
             return data
 
     def icoscp_get_stations_with_http_info(self, **kwargs):  # noqa: E501
-        """stations  # noqa: E501
+        """A list of ICOS stations  # noqa: E501
 
         without any parameters returns a list of all labeled and certified ICOS stations.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
@@ -512,7 +512,7 @@ class DefaultApi(object):
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/stations/', 'GET',
+            '/stations', 'GET',
             path_params,
             query_params,
             header_params,

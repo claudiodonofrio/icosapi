@@ -3,7 +3,7 @@
 """
     ICOS
 
-    Access to ICOS data and metadata. ICOS is a pan european Research Infrastructure measuring and observing greenhouse gases.  # noqa: E501
+    Access to data and metadata from the european Integrated Carbon Observation System, ICOS. The Carbon Poral is a one stop shop for european high quality greenhouse gas measurements.  This API is for users who like to have an easy access to the most common data objects and information about the research stations.  # noqa: E501
 
     OpenAPI spec version: 0.1.0
     Contact: info@icos-cp.eu
@@ -32,28 +32,35 @@ class TestDefaultApi(unittest.TestCase):
     def test_icoscp_get_collections(self):
         """Test case for icoscp_get_collections
 
-        collections  # noqa: E501
+        A list of data collections  # noqa: E501
         """
         pass
 
     def test_icoscp_get_data(self):
         """Test case for icoscp_get_data
 
-        data  # noqa: E501
+        A list of data objects  # noqa: E501
+        """
+        pass
+
+    def test_icoscp_get_download(self):
+        """Test case for icoscp_get_download
+
+        Download data  # noqa: E501
         """
         pass
 
     def test_icoscp_get_provisional_stations(self):
         """Test case for icoscp_get_provisional_stations
 
-        provisional  # noqa: E501
+        Povisional ICOS stations  # noqa: E501
         """
         pass
 
     def test_icoscp_get_stations(self):
         """Test case for icoscp_get_stations
 
-        stations  # noqa: E501
+        A list of ICOS stations  # noqa: E501
         """
         pass
 

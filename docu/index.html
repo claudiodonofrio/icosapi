@@ -841,6 +841,9 @@ ul.nav-tabs {
                     <li data-group="Default" data-name="icoscp.getData" class="">
                       <a href="#api-Default-icoscp.getData">icoscp.getData</a>
                     </li>
+                    <li data-group="Default" data-name="icoscp.getDownload" class="">
+                      <a href="#api-Default-icoscp.getDownload">icoscp.getDownload</a>
+                    </li>
                     <li data-group="Default" data-name="icoscp.getProvisionalStations" class="">
                       <a href="#api-Default-icoscp.getProvisionalStations">icoscp.getProvisionalStations</a>
                     </li>
@@ -863,9 +866,12 @@ ul.nav-tabs {
               <div class="app-desc">Version: 0.1.0</div>
             <hr>
             <div id="app-description" class="app-desc">
-                Access to ICOS data and metadata.
-ICOS is a pan european Research Infrastructure measuring and observing
-greenhouse gases.
+                <p>Access to data and metadata from the european Integrated Carbon Observation
+System, ICOS. The Carbon Poral is a one stop shop for european high quality
+greenhouse gas measurements.</p>
+<p>This API is for users who like to have an easy access to the most common
+data objects and information about the research stations.</p>
+
             </div>
           </div>
         </div>
@@ -876,18 +882,16 @@ greenhouse gases.
                       <article id="api-Default-icoscp.getCollections-0" data-group="User" data-name="icoscp.getCollections" data-version="0">
                         <div class="pull-left">
                           <h1>icoscp.getCollections</h1>
-                          <p>collections</p>
+                          <p>A list of data collections</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
                         <p></p>
-                        <p class="marked">A collection is a manually created assembly of data objects
-for a specific theme, project, area of interest.
-No parameters returns a list of collection ids with a short description
+                        <p class="marked">No parameters returns a list of collection id&#39;s with a short description
 for each collection (what kind of data is included, size, data object id&#39;s.)</p>
                         <p></p>
                         <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/collections/</span></code></pre>
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/collections</span></code></pre>
                         <p>
                           <h3>Usage and SDK Samples</h3>
                         </p>
@@ -908,7 +912,7 @@ for each collection (what kind of data is included, size, data object id&#39;s.)
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Default-icoscp.getCollections-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://127.0.0.1:9090/api/collections/?id=&limit="</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://127.0.0.1:9090/api/collections?id=&limit="</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Default-icoscp.getCollections-0-java">
                             <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
@@ -924,7 +928,8 @@ public class DefaultApiExample {
     public static void main(String[] args) {
         
         DefaultApi apiInstance = new DefaultApi();
-        Object id = ; // Object | collection id, returns a list of data object descriptors, included in the collection
+        Object id = ; // Object | Collection id returns a list of data object descriptors,
+included in a specific collection.
 
         Integer limit = 56; // Integer | limit the amount of entries returned. Very useful to test your query before you possibly get a list of thousands fo entries.
         try {
@@ -944,7 +949,8 @@ public class DefaultApiExample {
 
     public static void main(String[] args) {
         DefaultApi apiInstance = new DefaultApi();
-        Object id = ; // Object | collection id, returns a list of data object descriptors, included in the collection
+        Object id = ; // Object | Collection id returns a list of data object descriptors,
+included in a specific collection.
 
         Integer limit = 56; // Integer | limit the amount of entries returned. Very useful to test your query before you possibly get a list of thousands fo entries.
         try {
@@ -961,13 +967,14 @@ public class DefaultApiExample {
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
                             <div class="tab-pane" id="examples-Default-icoscp.getCollections-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">Object *id = ; // collection id, returns a list of data object descriptors, included in the collection
+                              <pre class="prettyprint"><code class="language-cpp">Object *id = ; // Collection id returns a list of data object descriptors,
+included in a specific collection.
  (optional) (default to null)
 Integer *limit = 56; // limit the amount of entries returned. Very useful to test your query before you possibly get a list of thousands fo entries. (optional) (default to null)
 
 DefaultApi *apiInstance = [[DefaultApi alloc] init];
 
-// collections
+// A list of data collections
 [apiInstance icoscp.getCollectionsWith:id
     limit:limit
               completionHandler: ^(NSError* error) {
@@ -983,7 +990,8 @@ DefaultApi *apiInstance = [[DefaultApi alloc] init];
 
 var api = new Icos.DefaultApi()
 var opts = {
-  'id': , // {Object} collection id, returns a list of data object descriptors, included in the collection
+  'id': , // {Object} Collection id returns a list of data object descriptors,
+included in a specific collection.
 
   'limit': 56 // {Integer} limit the amount of entries returned. Very useful to test your query before you possibly get a list of thousands fo entries.
 };
@@ -1017,13 +1025,14 @@ namespace Example
         {
             
             var apiInstance = new DefaultApi();
-            var id = new Object(); // Object | collection id, returns a list of data object descriptors, included in the collection
+            var id = new Object(); // Object | Collection id returns a list of data object descriptors,
+included in a specific collection.
  (optional)  (default to null)
             var limit = 56;  // Integer | limit the amount of entries returned. Very useful to test your query before you possibly get a list of thousands fo entries. (optional)  (default to null)
 
             try
             {
-                // collections
+                // A list of data collections
                 apiInstance.icoscp.getCollections(id, limit);
             }
             catch (Exception e)
@@ -1041,7 +1050,8 @@ namespace Example
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api_instance = new OpenAPITools\Client\Api\DefaultApi();
-$id = ; // Object | collection id, returns a list of data object descriptors, included in the collection
+$id = ; // Object | Collection id returns a list of data object descriptors,
+included in a specific collection.
 
 $limit = 56; // Integer | limit the amount of entries returned. Very useful to test your query before you possibly get a list of thousands fo entries.
 
@@ -1059,7 +1069,8 @@ use WWW::OPenAPIClient::Configuration;
 use WWW::OPenAPIClient::DefaultApi;
 
 my $api_instance = WWW::OPenAPIClient::DefaultApi->new();
-my $id = ; # Object | collection id, returns a list of data object descriptors, included in the collection
+my $id = ; # Object | Collection id returns a list of data object descriptors,
+included in a specific collection.
 
 my $limit = 56; # Integer | limit the amount of entries returned. Very useful to test your query before you possibly get a list of thousands fo entries.
 
@@ -1080,12 +1091,13 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = openapi_client.DefaultApi()
-id =  # Object | collection id, returns a list of data object descriptors, included in the collection
+id =  # Object | Collection id returns a list of data object descriptors,
+included in a specific collection.
  (optional) (default to null)
 limit = 56 # Integer | limit the amount of entries returned. Very useful to test your query before you possibly get a list of thousands fo entries. (optional) (default to null)
 
 try: 
-    # collections
+    # A list of data collections
     api_instance.icoscp/get_collections(id=id, limit=limit)
 except ApiException as e:
     print("Exception when calling DefaultApi->icoscp.getCollections: %s\n" % e)</code></pre>
@@ -1136,7 +1148,8 @@ pub fn main() {
                 </span>
 
                     <div class="inner description marked">
-collection id, returns a list of data object descriptors, included in the collection
+Collection id returns a list of data object descriptors,
+included in a specific collection.
 
                     </div>
             </div>
@@ -1174,7 +1187,7 @@ limit the amount of entries returned. Very useful to test your query before you 
                             <h3 id="examples-Default-icoscp.getCollections-title-200"></h3>
                             <p id="examples-Default-icoscp.getCollections-description-200" class="marked"></p>
                             <script>
-                              var responseDefault200_description = `data returned`;
+                              var responseDefault200_description = `data collection`;
                               var responseDefault200_description_break = responseDefault200_description.indexOf('\n');
                               if (responseDefault200_description_break == -1) {
                                 $("#examples-Default-icoscp.getCollections-title-200").text("Status: 200 - " + responseDefault200_description);
@@ -1200,15 +1213,19 @@ limit the amount of entries returned. Very useful to test your query before you 
                       <article id="api-Default-icoscp.getData-0" data-group="User" data-name="icoscp.getData" data-version="0">
                         <div class="pull-left">
                           <h1>icoscp.getData</h1>
-                          <p>data</p>
+                          <p>A list of data objects</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
                         <p></p>
-                        <p class="marked">Download a specific data object.</p>
+                        <p class="marked">Download a list of data objects or if you provide a valid data object ID, you
+get the information about that specific digital object.
+If you don&#39;t set the paramater &quot;limit&quot;, by default we set a limit of 25. 
+If you want &quot;all&quot; you need to set limit to -1. But be very careful, we have
+thousands of data objects.</p>
                         <p></p>
                         <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/data/</span></code></pre>
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/data</span></code></pre>
                         <p>
                           <h3>Usage and SDK Samples</h3>
                         </p>
@@ -1229,7 +1246,7 @@ limit the amount of entries returned. Very useful to test your query before you 
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Default-icoscp.getData-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://127.0.0.1:9090/api/data/?id=&theme=&startDate="</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://127.0.0.1:9090/api/data?id=&theme=&startDate=&endDate=&variable=&limit="</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Default-icoscp.getData-0-java">
                             <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
@@ -1252,8 +1269,14 @@ public class DefaultApiExample {
 - OTC (ocean)
         Integer startDate = 56; // Integer | The measurement/observation data first time stamp is...yyyymmdd
 
+        Integer endDate = 56; // Integer | The measurement/observation data last time stamp is...yyyymmdd
+        String variable = variable_example; // String | This is a full list of variables collected from the ICOS stations.
+Depending on the THEME and CLASS of the station, not all the variables are
+available.
+        Integer limit = 56; // Integer | You can limit the returned list to N entries.
+
         try {
-            apiInstance.icoscp.getData(id, theme, startDate);
+            apiInstance.icoscp.getData(id, theme, startDate, endDate, variable, limit);
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#icoscp.getData");
             e.printStackTrace();
@@ -1276,8 +1299,14 @@ public class DefaultApiExample {
 - OTC (ocean)
         Integer startDate = 56; // Integer | The measurement/observation data first time stamp is...yyyymmdd
 
+        Integer endDate = 56; // Integer | The measurement/observation data last time stamp is...yyyymmdd
+        String variable = variable_example; // String | This is a full list of variables collected from the ICOS stations.
+Depending on the THEME and CLASS of the station, not all the variables are
+available.
+        Integer limit = 56; // Integer | You can limit the returned list to N entries.
+
         try {
-            apiInstance.icoscp.getData(id, theme, startDate);
+            apiInstance.icoscp.getData(id, theme, startDate, endDate, variable, limit);
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#icoscp.getData");
             e.printStackTrace();
@@ -1297,13 +1326,22 @@ String *theme = theme_example; // This is a filter for data belonging to:
 - OTC (ocean) (optional) (default to null)
 Integer *startDate = 56; // The measurement/observation data first time stamp is...yyyymmdd
  (optional) (default to null)
+Integer *endDate = 56; // The measurement/observation data last time stamp is...yyyymmdd (optional) (default to null)
+String *variable = variable_example; // This is a full list of variables collected from the ICOS stations.
+Depending on the THEME and CLASS of the station, not all the variables are
+available. (optional) (default to null)
+Integer *limit = 56; // You can limit the returned list to N entries.
+ (optional) (default to null)
 
 DefaultApi *apiInstance = [[DefaultApi alloc] init];
 
-// data
+// A list of data objects
 [apiInstance icoscp.getDataWith:id
     theme:theme
     startDate:startDate
+    endDate:endDate
+    variable:variable
+    limit:limit
               completionHandler: ^(NSError* error) {
                             if (error) {
                                 NSLog(@"Error: %@", error);
@@ -1322,7 +1360,13 @@ var opts = {
 - ATC (atmosphere)
 - ETC (ecosystem)
 - OTC (ocean)
-  'startDate': 56 // {Integer} The measurement/observation data first time stamp is...yyyymmdd
+  'startDate': 56, // {Integer} The measurement/observation data first time stamp is...yyyymmdd
+
+  'endDate': 56, // {Integer} The measurement/observation data last time stamp is...yyyymmdd
+  'variable': variable_example, // {String} This is a full list of variables collected from the ICOS stations.
+Depending on the THEME and CLASS of the station, not all the variables are
+available.
+  'limit': 56 // {Integer} You can limit the returned list to N entries.
 
 };
 
@@ -1362,11 +1406,17 @@ namespace Example
 - OTC (ocean) (optional)  (default to null)
             var startDate = 56;  // Integer | The measurement/observation data first time stamp is...yyyymmdd
  (optional)  (default to null)
+            var endDate = 56;  // Integer | The measurement/observation data last time stamp is...yyyymmdd (optional)  (default to null)
+            var variable = variable_example;  // String | This is a full list of variables collected from the ICOS stations.
+Depending on the THEME and CLASS of the station, not all the variables are
+available. (optional)  (default to null)
+            var limit = 56;  // Integer | You can limit the returned list to N entries.
+ (optional)  (default to null)
 
             try
             {
-                // data
-                apiInstance.icoscp.getData(id, theme, startDate);
+                // A list of data objects
+                apiInstance.icoscp.getData(id, theme, startDate, endDate, variable, limit);
             }
             catch (Exception e)
             {
@@ -1390,9 +1440,15 @@ $theme = theme_example; // String | This is a filter for data belonging to:
 - OTC (ocean)
 $startDate = 56; // Integer | The measurement/observation data first time stamp is...yyyymmdd
 
+$endDate = 56; // Integer | The measurement/observation data last time stamp is...yyyymmdd
+$variable = variable_example; // String | This is a full list of variables collected from the ICOS stations.
+Depending on the THEME and CLASS of the station, not all the variables are
+available.
+$limit = 56; // Integer | You can limit the returned list to N entries.
+
 
 try {
-    $api_instance->icoscp.getData($id, $theme, $startDate);
+    $api_instance->icoscp.getData($id, $theme, $startDate, $endDate, $variable, $limit);
 } catch (Exception $e) {
     echo 'Exception when calling DefaultApi->icoscp.getData: ', $e->getMessage(), PHP_EOL;
 }
@@ -1412,9 +1468,15 @@ my $theme = theme_example; # String | This is a filter for data belonging to:
 - OTC (ocean)
 my $startDate = 56; # Integer | The measurement/observation data first time stamp is...yyyymmdd
 
+my $endDate = 56; # Integer | The measurement/observation data last time stamp is...yyyymmdd
+my $variable = variable_example; # String | This is a full list of variables collected from the ICOS stations.
+Depending on the THEME and CLASS of the station, not all the variables are
+available.
+my $limit = 56; # Integer | You can limit the returned list to N entries.
+
 
 eval { 
-    $api_instance->icoscp.getData(id => $id, theme => $theme, startDate => $startDate);
+    $api_instance->icoscp.getData(id => $id, theme => $theme, startDate => $startDate, endDate => $endDate, variable => $variable, limit => $limit);
 };
 if ($@) {
     warn "Exception when calling DefaultApi->icoscp.getData: $@\n";
@@ -1437,10 +1499,16 @@ theme = theme_example # String | This is a filter for data belonging to:
 - OTC (ocean) (optional) (default to null)
 startDate = 56 # Integer | The measurement/observation data first time stamp is...yyyymmdd
  (optional) (default to null)
+endDate = 56 # Integer | The measurement/observation data last time stamp is...yyyymmdd (optional) (default to null)
+variable = variable_example # String | This is a full list of variables collected from the ICOS stations.
+Depending on the THEME and CLASS of the station, not all the variables are
+available. (optional) (default to null)
+limit = 56 # Integer | You can limit the returned list to N entries.
+ (optional) (default to null)
 
 try: 
-    # data
-    api_instance.icoscp/get_data(id=id, theme=theme, startDate=startDate)
+    # A list of data objects
+    api_instance.icoscp/get_data(id=id, theme=theme, startDate=startDate, endDate=endDate, variable=variable, limit=limit)
 except ApiException as e:
     print("Exception when calling DefaultApi->icoscp.getData: %s\n" % e)</code></pre>
                             </div>
@@ -1452,9 +1520,12 @@ pub fn main() {
     let id = id_example; // String
     let theme = theme_example; // String
     let startDate = 56; // Integer
+    let endDate = 56; // Integer
+    let variable = variable_example; // String
+    let limit = 56; // Integer
 
     let mut context = DefaultApi::Context::default();
-    let result = client.icoscp.getData(id, theme, startDate, &context).wait();
+    let result = client.icoscp.getData(id, theme, startDate, endDate, variable, limit, &context).wait();
     println!("{:?}", result);
 
 }
@@ -1546,6 +1617,75 @@ The measurement/observation data first time stamp is...yyyymmdd
 </td>
 </tr>
 
+                                <tr><td style="width:150px;">endDate</td>
+<td>
+
+
+    <div id="d2e199_icoscp.getData_endDate">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    Integer
+                </span>
+                    <span class="format">
+                        (int32)
+                    </span>
+
+                    <div class="inner description marked">
+The measurement/observation data last time stamp is...yyyymmdd
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">variable</td>
+<td>
+
+
+    <div id="d2e199_icoscp.getData_variable">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+This is a full list of variables collected from the ICOS stations.
+Depending on the THEME and CLASS of the station, not all the variables are
+available.
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">limit</td>
+<td>
+
+
+    <div id="d2e199_icoscp.getData_limit">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    Integer
+                </span>
+                    <span class="format">
+                        (int32)
+                    </span>
+
+                    <div class="inner description marked">
+You can limit the returned list to N entries.
+
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
                             </table>
 
                           <h2>Responses</h2>
@@ -1574,11 +1714,359 @@ The measurement/observation data first time stamp is...yyyymmdd
                         </article>
                       </div>
                       <hr>
+                    <div id="api-Default-icoscp.getDownload">
+                      <article id="api-Default-icoscp.getDownload-0" data-group="User" data-name="icoscp.getDownload" data-version="0">
+                        <div class="pull-left">
+                          <h1>icoscp.getDownload</h1>
+                          <p>Download data</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">Download specific data objects.</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/download</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Default-icoscp.getDownload-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Default-icoscp.getDownload-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Default-icoscp.getDownload-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Default-icoscp.getDownload-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Default-icoscp.getDownload-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Default-icoscp.getDownload-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Default-icoscp.getDownload-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Default-icoscp.getDownload-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Default-icoscp.getDownload-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Default-icoscp.getDownload-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Default-icoscp.getDownload-0-python">Python</a></li>
+                          <li class=""><a href="#examples-Default-icoscp.getDownload-0-rust">Rust</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Default-icoscp.getDownload-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://127.0.0.1:9090/api/download?id=&format="</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Default-icoscp.getDownload-0-java">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.model.*;
+import org.openapitools.client.api.DefaultApi;
+
+import java.io.File;
+import java.util.*;
+
+public class DefaultApiExample {
+
+    public static void main(String[] args) {
+        
+        DefaultApi apiInstance = new DefaultApi();
+        array[Object] id = ; // array[Object] | Digital object identifier.Provide an array of id's in the form
+[id1, id2, id3]. For a single file you still need to provide an array, with
+only one entry [id1].
+        String format = format_example; // String | The files you download are normally combined with meta data, licence information
+citation strings, etc. Hence we will pack these files together.
+By default you get a zip file.
+        try {
+            apiInstance.icoscp.getDownload(id, format);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#icoscp.getDownload");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Default-icoscp.getDownload-0-android">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.DefaultApi;
+
+public class DefaultApiExample {
+
+    public static void main(String[] args) {
+        DefaultApi apiInstance = new DefaultApi();
+        array[Object] id = ; // array[Object] | Digital object identifier.Provide an array of id's in the form
+[id1, id2, id3]. For a single file you still need to provide an array, with
+only one entry [id1].
+        String format = format_example; // String | The files you download are normally combined with meta data, licence information
+citation strings, etc. Hence we will pack these files together.
+By default you get a zip file.
+        try {
+            apiInstance.icoscp.getDownload(id, format);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#icoscp.getDownload");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Default-icoscp.getDownload-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Default-icoscp.getDownload-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">array[Object] *id = ; // Digital object identifier.Provide an array of id's in the form
+[id1, id2, id3]. For a single file you still need to provide an array, with
+only one entry [id1]. (default to null)
+String *format = format_example; // The files you download are normally combined with meta data, licence information
+citation strings, etc. Hence we will pack these files together.
+By default you get a zip file. (optional) (default to null)
+
+DefaultApi *apiInstance = [[DefaultApi alloc] init];
+
+// Download data
+[apiInstance icoscp.getDownloadWith:id
+    format:format
+              completionHandler: ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-icoscp.getDownload-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var Icos = require('icos');
+
+var api = new Icos.DefaultApi()
+var id = ; // {array[Object]} Digital object identifier.Provide an array of id's in the form
+[id1, id2, id3]. For a single file you still need to provide an array, with
+only one entry [id1].
+var opts = {
+  'format': format_example // {String} The files you download are normally combined with meta data, licence information
+citation strings, etc. Hence we will pack these files together.
+By default you get a zip file.
+};
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.icoscp.getDownload(id, opts, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Default-icoscp.getDownload-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Default-icoscp.getDownload-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using Org.OpenAPITools.Api;
+using Org.OpenAPITools.Client;
+using Org.OpenAPITools.Model;
+
+namespace Example
+{
+    public class icoscp.getDownloadExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new DefaultApi();
+            var id = new array[Object](); // array[Object] | Digital object identifier.Provide an array of id's in the form
+[id1, id2, id3]. For a single file you still need to provide an array, with
+only one entry [id1]. (default to null)
+            var format = format_example;  // String | The files you download are normally combined with meta data, licence information
+citation strings, etc. Hence we will pack these files together.
+By default you get a zip file. (optional)  (default to null)
+
+            try
+            {
+                // Download data
+                apiInstance.icoscp.getDownload(id, format);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.icoscp.getDownload: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-icoscp.getDownload-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new OpenAPITools\Client\Api\DefaultApi();
+$id = ; // array[Object] | Digital object identifier.Provide an array of id's in the form
+[id1, id2, id3]. For a single file you still need to provide an array, with
+only one entry [id1].
+$format = format_example; // String | The files you download are normally combined with meta data, licence information
+citation strings, etc. Hence we will pack these files together.
+By default you get a zip file.
+
+try {
+    $api_instance->icoscp.getDownload($id, $format);
+} catch (Exception $e) {
+    echo 'Exception when calling DefaultApi->icoscp.getDownload: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-icoscp.getDownload-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::OPenAPIClient::Configuration;
+use WWW::OPenAPIClient::DefaultApi;
+
+my $api_instance = WWW::OPenAPIClient::DefaultApi->new();
+my $id = []; # array[Object] | Digital object identifier.Provide an array of id's in the form
+[id1, id2, id3]. For a single file you still need to provide an array, with
+only one entry [id1].
+my $format = format_example; # String | The files you download are normally combined with meta data, licence information
+citation strings, etc. Hence we will pack these files together.
+By default you get a zip file.
+
+eval { 
+    $api_instance->icoscp.getDownload(id => $id, format => $format);
+};
+if ($@) {
+    warn "Exception when calling DefaultApi->icoscp.getDownload: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-icoscp.getDownload-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import openapi_client
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = openapi_client.DefaultApi()
+id =  # array[Object] | Digital object identifier.Provide an array of id's in the form
+[id1, id2, id3]. For a single file you still need to provide an array, with
+only one entry [id1]. (default to null)
+format = format_example # String | The files you download are normally combined with meta data, licence information
+citation strings, etc. Hence we will pack these files together.
+By default you get a zip file. (optional) (default to null)
+
+try: 
+    # Download data
+    api_instance.icoscp/get_download(id, format=format)
+except ApiException as e:
+    print("Exception when calling DefaultApi->icoscp.getDownload: %s\n" % e)</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-icoscp.getDownload-0-rust">
+                              <pre class="prettyprint"><code class="language-rust">extern crate DefaultApi;
+
+pub fn main() {
+    let id = ; // array[Object]
+    let format = format_example; // String
+
+    let mut context = DefaultApi::Context::default();
+    let result = client.icoscp.getDownload(id, format, &context).wait();
+    println!("{:?}", result);
+
+}
+</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Scopes</h2>
+                          <table>
+                            
+                          </table>
+
+                          <h2>Parameters</h2>
+
+
+
+
+
+                            <div class="methodsubtabletitle">Query parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">id*</td>
+<td>
+
+
+    <div id="d2e199_icoscp.getDownload_id">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    array[Object]
+                </span>
+
+                    <div class="inner description marked">
+Digital object identifier.Provide an array of id&#39;s in the form
+[id1, id2, id3]. For a single file you still need to provide an array, with
+only one entry [id1].
+                    </div>
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">format</td>
+<td>
+
+
+    <div id="d2e199_icoscp.getDownload_format">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+The files you download are normally combined with meta data, licence information
+citation strings, etc. Hence we will pack these files together.
+By default you get a zip file.
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+                          <h2>Responses</h2>
+                            <h3 id="examples-Default-icoscp.getDownload-title-200"></h3>
+                            <p id="examples-Default-icoscp.getDownload-description-200" class="marked"></p>
+                            <script>
+                              var responseDefault200_description = `download completed`;
+                              var responseDefault200_description_break = responseDefault200_description.indexOf('\n');
+                              if (responseDefault200_description_break == -1) {
+                                $("#examples-Default-icoscp.getDownload-title-200").text("Status: 200 - " + responseDefault200_description);
+                              } else {
+                                $("#examples-Default-icoscp.getDownload-title-200").text("Status: 200 - " + responseDefault200_description.substring(0, responseDefault200_description_break));
+                                $("#examples-Default-icoscp.getDownload-description-200").html(responseDefault200_description.substring(responseDefault200_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-Default-icoscp.getDownload-200" class="nav nav-tabs nav-tabs-examples" >
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-Default-icoscp.getDownload-200-wrapper" style='margin-bottom: 10px;'>
+                            </div>
+                        </article>
+                      </div>
+                      <hr>
                     <div id="api-Default-icoscp.getProvisionalStations">
                       <article id="api-Default-icoscp.getProvisionalStations-0" data-group="User" data-name="icoscp.getProvisionalStations" data-version="0">
                         <div class="pull-left">
                           <h1>icoscp.getProvisionalStations</h1>
-                          <p>provisional</p>
+                          <p>Povisional ICOS stations</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -1586,7 +2074,7 @@ The measurement/observation data first time stamp is...yyyymmdd
                         <p class="marked">get a list of icos stations in the labeling process</p>
                         <p></p>
                         <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/stations/provisional/</span></code></pre>
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/stations/provisional</span></code></pre>
                         <p>
                           <h3>Usage and SDK Samples</h3>
                         </p>
@@ -1607,7 +2095,7 @@ The measurement/observation data first time stamp is...yyyymmdd
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Default-icoscp.getProvisionalStations-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://127.0.0.1:9090/api/stations/provisional/"</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://127.0.0.1:9090/api/stations/provisional?country=&theme="</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Default-icoscp.getProvisionalStations-0-java">
                             <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
@@ -1623,8 +2111,13 @@ public class DefaultApiExample {
     public static void main(String[] args) {
         
         DefaultApi apiInstance = new DefaultApi();
+        String country = country_example; // String | Returns a list of stations for a specific country.
+https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#WO
+        String theme = theme_example; // String | ICOS has three main distinction of themes, where green hous gas measurments are collected:
+OTC (Ocean), ETC (Ecosystem), ATC (Atmosphere).
+
         try {
-            apiInstance.icoscp.getProvisionalStations();
+            apiInstance.icoscp.getProvisionalStations(country, theme);
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#icoscp.getProvisionalStations");
             e.printStackTrace();
@@ -1640,8 +2133,13 @@ public class DefaultApiExample {
 
     public static void main(String[] args) {
         DefaultApi apiInstance = new DefaultApi();
+        String country = country_example; // String | Returns a list of stations for a specific country.
+https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#WO
+        String theme = theme_example; // String | ICOS has three main distinction of themes, where green hous gas measurments are collected:
+OTC (Ocean), ETC (Ecosystem), ATC (Atmosphere).
+
         try {
-            apiInstance.icoscp.getProvisionalStations();
+            apiInstance.icoscp.getProvisionalStations(country, theme);
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#icoscp.getProvisionalStations");
             e.printStackTrace();
@@ -1654,12 +2152,18 @@ public class DefaultApiExample {
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
                             <div class="tab-pane" id="examples-Default-icoscp.getProvisionalStations-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">
+                              <pre class="prettyprint"><code class="language-cpp">String *country = country_example; // Returns a list of stations for a specific country.
+https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#WO (optional) (default to null)
+String *theme = theme_example; // ICOS has three main distinction of themes, where green hous gas measurments are collected:
+OTC (Ocean), ETC (Ecosystem), ATC (Atmosphere).
+ (optional) (default to null)
+
 DefaultApi *apiInstance = [[DefaultApi alloc] init];
 
-// provisional
-[apiInstance icoscp.getProvisionalStationsWithCompletionHandler: 
-              ^(NSError* error) {
+// Povisional ICOS stations
+[apiInstance icoscp.getProvisionalStationsWith:country
+    theme:theme
+              completionHandler: ^(NSError* error) {
                             if (error) {
                                 NSLog(@"Error: %@", error);
                             }
@@ -1671,6 +2175,14 @@ DefaultApi *apiInstance = [[DefaultApi alloc] init];
                               <pre class="prettyprint"><code class="language-js">var Icos = require('icos');
 
 var api = new Icos.DefaultApi()
+var opts = {
+  'country': country_example, // {String} Returns a list of stations for a specific country.
+https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#WO
+  'theme': theme_example // {String} ICOS has three main distinction of themes, where green hous gas measurments are collected:
+OTC (Ocean), ETC (Ecosystem), ATC (Atmosphere).
+
+};
+
 var callback = function(error, data, response) {
   if (error) {
     console.error(error);
@@ -1678,7 +2190,7 @@ var callback = function(error, data, response) {
     console.log('API called successfully.');
   }
 };
-api.icoscp.getProvisionalStations(callback);
+api.icoscp.getProvisionalStations(opts, callback);
 </code></pre>
                             </div>
 
@@ -1700,11 +2212,16 @@ namespace Example
         {
             
             var apiInstance = new DefaultApi();
+            var country = country_example;  // String | Returns a list of stations for a specific country.
+https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#WO (optional)  (default to null)
+            var theme = theme_example;  // String | ICOS has three main distinction of themes, where green hous gas measurments are collected:
+OTC (Ocean), ETC (Ecosystem), ATC (Atmosphere).
+ (optional)  (default to null)
 
             try
             {
-                // provisional
-                apiInstance.icoscp.getProvisionalStations();
+                // Povisional ICOS stations
+                apiInstance.icoscp.getProvisionalStations(country, theme);
             }
             catch (Exception e)
             {
@@ -1721,9 +2238,14 @@ namespace Example
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api_instance = new OpenAPITools\Client\Api\DefaultApi();
+$country = country_example; // String | Returns a list of stations for a specific country.
+https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#WO
+$theme = theme_example; // String | ICOS has three main distinction of themes, where green hous gas measurments are collected:
+OTC (Ocean), ETC (Ecosystem), ATC (Atmosphere).
+
 
 try {
-    $api_instance->icoscp.getProvisionalStations();
+    $api_instance->icoscp.getProvisionalStations($country, $theme);
 } catch (Exception $e) {
     echo 'Exception when calling DefaultApi->icoscp.getProvisionalStations: ', $e->getMessage(), PHP_EOL;
 }
@@ -1736,9 +2258,14 @@ use WWW::OPenAPIClient::Configuration;
 use WWW::OPenAPIClient::DefaultApi;
 
 my $api_instance = WWW::OPenAPIClient::DefaultApi->new();
+my $country = country_example; # String | Returns a list of stations for a specific country.
+https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#WO
+my $theme = theme_example; # String | ICOS has three main distinction of themes, where green hous gas measurments are collected:
+OTC (Ocean), ETC (Ecosystem), ATC (Atmosphere).
+
 
 eval { 
-    $api_instance->icoscp.getProvisionalStations();
+    $api_instance->icoscp.getProvisionalStations(country => $country, theme => $theme);
 };
 if ($@) {
     warn "Exception when calling DefaultApi->icoscp.getProvisionalStations: $@\n";
@@ -1754,10 +2281,15 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = openapi_client.DefaultApi()
+country = country_example # String | Returns a list of stations for a specific country.
+https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#WO (optional) (default to null)
+theme = theme_example # String | ICOS has three main distinction of themes, where green hous gas measurments are collected:
+OTC (Ocean), ETC (Ecosystem), ATC (Atmosphere).
+ (optional) (default to null)
 
 try: 
-    # provisional
-    api_instance.icoscp/get_provisional_stations()
+    # Povisional ICOS stations
+    api_instance.icoscp/get_provisional_stations(country=country, theme=theme)
 except ApiException as e:
     print("Exception when calling DefaultApi->icoscp.getProvisionalStations: %s\n" % e)</code></pre>
                             </div>
@@ -1766,9 +2298,11 @@ except ApiException as e:
                               <pre class="prettyprint"><code class="language-rust">extern crate DefaultApi;
 
 pub fn main() {
+    let country = country_example; // String
+    let theme = theme_example; // String
 
     let mut context = DefaultApi::Context::default();
-    let result = client.icoscp.getProvisionalStations(&context).wait();
+    let result = client.icoscp.getProvisionalStations(country, theme, &context).wait();
     println!("{:?}", result);
 
 }
@@ -1787,6 +2321,56 @@ pub fn main() {
 
 
 
+                            <div class="methodsubtabletitle">Query parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">country</td>
+<td>
+
+
+    <div id="d2e199_icoscp.getProvisionalStations_country">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+Returns a list of stations for a specific country.
+https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#WO
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">theme</td>
+<td>
+
+
+    <div id="d2e199_icoscp.getProvisionalStations_theme">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+ICOS has three main distinction of themes, where green hous gas measurments are collected:
+OTC (Ocean), ETC (Ecosystem), ATC (Atmosphere).
+
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
 
                           <h2>Responses</h2>
                             <h3 id="examples-Default-icoscp.getProvisionalStations-title-200"></h3>
@@ -1818,7 +2402,7 @@ pub fn main() {
                       <article id="api-Default-icoscp.getStations-0" data-group="User" data-name="icoscp.getStations" data-version="0">
                         <div class="pull-left">
                           <h1>icoscp.getStations</h1>
-                          <p>stations</p>
+                          <p>A list of ICOS stations</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -1826,7 +2410,7 @@ pub fn main() {
                         <p class="marked">without any parameters returns a list of all labeled and certified ICOS stations.</p>
                         <p></p>
                         <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/stations/</span></code></pre>
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/stations</span></code></pre>
                         <p>
                           <h3>Usage and SDK Samples</h3>
                         </p>
@@ -1847,7 +2431,7 @@ pub fn main() {
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Default-icoscp.getStations-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://127.0.0.1:9090/api/stations/?country=&id=&theme=&class=&bb="</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://127.0.0.1:9090/api/stations?country=&id=&theme=&class=&bb="</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Default-icoscp.getStations-0-java">
                             <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
@@ -1936,7 +2520,7 @@ Example: api/stations?bb=[50,-10, 30, 15] (optional) (default to null)
 
 DefaultApi *apiInstance = [[DefaultApi alloc] init];
 
-// stations
+// A list of ICOS stations
 [apiInstance icoscp.getStationsWith:country
     id:id
     theme:theme
@@ -2015,7 +2599,7 @@ Example: api/stations?bb=[50,-10, 30, 15] (optional)  (default to null)
 
             try
             {
-                // stations
+                // A list of ICOS stations
                 apiInstance.icoscp.getStations(country, id, theme, class, bb);
             }
             catch (Exception e)
@@ -2107,7 +2691,7 @@ bb =  # array[BigDecimal] | bounding box. If you provide latitude and longitude 
 Example: api/stations?bb=[50,-10, 30, 15] (optional) (default to null)
 
 try: 
-    # stations
+    # A list of ICOS stations
     api_instance.icoscp/get_stations(country=country, id=id, theme=theme, class=class, bb=bb)
 except ApiException as e:
     print("Exception when calling DefaultApi->icoscp.getStations: %s\n" % e)</code></pre>
@@ -2263,7 +2847,7 @@ Example: api/stations?bb&#x3D;[50,-10, 30, 15]
                             <h3 id="examples-Default-icoscp.getStations-title-200"></h3>
                             <p id="examples-Default-icoscp.getStations-description-200" class="marked"></p>
                             <script>
-                              var responseDefault200_description = `OK`;
+                              var responseDefault200_description = `ICOS certified stations`;
                               var responseDefault200_description_break = responseDefault200_description.indexOf('\n');
                               if (responseDefault200_description_break == -1) {
                                 $("#examples-Default-icoscp.getStations-title-200").text("Status: 200 - " + responseDefault200_description);

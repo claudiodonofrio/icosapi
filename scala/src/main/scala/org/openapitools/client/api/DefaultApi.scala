@@ -74,7 +74,7 @@ class DefaultApi(
   val helper = new DefaultApiAsyncHelper(client, config)
 
   /**
-   * collections
+   * A list of data collections
    * No parameters returns a list of collection id&#39;s with a short description for each collection (what kind of data is included, size, data object id&#39;s.)
    *
    * @param id Collection id returns a list of data object descriptors, included in a specific collection.  (optional)
@@ -90,7 +90,7 @@ class DefaultApi(
   }
 
   /**
-   * collections asynchronously
+   * A list of data collections asynchronously
    * No parameters returns a list of collection id&#39;s with a short description for each collection (what kind of data is included, size, data object id&#39;s.)
    *
    * @param id Collection id returns a list of data object descriptors, included in a specific collection.  (optional)
@@ -102,7 +102,7 @@ class DefaultApi(
   }
 
   /**
-   * data
+   * A list of data objects
    * Download a list of data objects or if you provide a valid data object ID, you get the information about that specific digital object. If you don&#39;t set the paramater \&quot;limit\&quot;, by default we set a limit of 25.  If you want \&quot;all\&quot; you need to set limit to -1. But be very careful, we have thousands of data objects.
    *
    * @param id please provide a vlid digital object id to download data (optional)
@@ -122,7 +122,7 @@ class DefaultApi(
   }
 
   /**
-   * data asynchronously
+   * A list of data objects asynchronously
    * Download a list of data objects or if you provide a valid data object ID, you get the information about that specific digital object. If you don&#39;t set the paramater \&quot;limit\&quot;, by default we set a limit of 25.  If you want \&quot;all\&quot; you need to set limit to -1. But be very careful, we have thousands of data objects.
    *
    * @param id please provide a vlid digital object id to download data (optional)
@@ -138,7 +138,7 @@ class DefaultApi(
   }
 
   /**
-   * 
+   * Download data
    * Download specific data objects.
    *
    * @param id Digital object identifier.Provide an array of id&#39;s in the form [id1, id2, id3]. For a single file you still need to provide an array, with only one entry [id1]. 
@@ -154,7 +154,7 @@ class DefaultApi(
   }
 
   /**
-   *  asynchronously
+   * Download data asynchronously
    * Download specific data objects.
    *
    * @param id Digital object identifier.Provide an array of id&#39;s in the form [id1, id2, id3]. For a single file you still need to provide an array, with only one entry [id1]. 
@@ -166,7 +166,7 @@ class DefaultApi(
   }
 
   /**
-   * provisional
+   * Povisional ICOS stations
    * get a list of icos stations in the labeling process
    *
    * @param country Returns a list of stations for a specific country. https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#WO (optional)
@@ -182,7 +182,7 @@ class DefaultApi(
   }
 
   /**
-   * provisional asynchronously
+   * Povisional ICOS stations asynchronously
    * get a list of icos stations in the labeling process
    *
    * @param country Returns a list of stations for a specific country. https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#WO (optional)
@@ -194,7 +194,7 @@ class DefaultApi(
   }
 
   /**
-   * stations
+   * A list of ICOS stations
    * without any parameters returns a list of all labeled and certified ICOS stations.
    *
    * @param country Returns a list of stations for a specific country. https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#WO (optional)
@@ -213,7 +213,7 @@ class DefaultApi(
   }
 
   /**
-   * stations asynchronously
+   * A list of ICOS stations asynchronously
    * without any parameters returns a list of all labeled and certified ICOS stations.
    *
    * @param country Returns a list of stations for a specific country. https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#WO (optional)
@@ -235,7 +235,7 @@ class DefaultApiAsyncHelper(client: TransportClient, config: SwaggerConfig) exte
     limit: Option[Integer] = None
     )(implicit reader: ClientResponseReader[Unit]): Future[Unit] = {
     // create path and map variables
-    val path = (addFmt("/collections/"))
+    val path = (addFmt("/collections"))
 
     // query params
     val queryParams = new mutable.HashMap[String, String]
@@ -264,7 +264,7 @@ class DefaultApiAsyncHelper(client: TransportClient, config: SwaggerConfig) exte
     limit: Option[Integer] = None
     )(implicit reader: ClientResponseReader[Unit]): Future[Unit] = {
     // create path and map variables
-    val path = (addFmt("/data/"))
+    val path = (addFmt("/data"))
 
     // query params
     val queryParams = new mutable.HashMap[String, String]
@@ -305,7 +305,7 @@ class DefaultApiAsyncHelper(client: TransportClient, config: SwaggerConfig) exte
     format: Option[String] = None
     )(implicit reader: ClientResponseReader[Unit]): Future[Unit] = {
     // create path and map variables
-    val path = (addFmt("/download/"))
+    val path = (addFmt("/download"))
 
     // query params
     val queryParams = new mutable.HashMap[String, String]
@@ -328,7 +328,7 @@ class DefaultApiAsyncHelper(client: TransportClient, config: SwaggerConfig) exte
     theme: Option[String] = None
     )(implicit reader: ClientResponseReader[Unit]): Future[Unit] = {
     // create path and map variables
-    val path = (addFmt("/stations/provisional/"))
+    val path = (addFmt("/stations/provisional"))
 
     // query params
     val queryParams = new mutable.HashMap[String, String]
@@ -356,7 +356,7 @@ class DefaultApiAsyncHelper(client: TransportClient, config: SwaggerConfig) exte
     bb: Option[List[Number]] = Option(new ListBuffer[Number]() )
     )(implicit reader: ClientResponseReader[Unit]): Future[Unit] = {
     // create path and map variables
-    val path = (addFmt("/stations/"))
+    val path = (addFmt("/stations"))
 
     // query params
     val queryParams = new mutable.HashMap[String, String]

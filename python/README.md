@@ -58,7 +58,7 @@ id = NULL # object | Collection id returns a list of data object descriptors, in
 limit = 56 # int | limit the amount of entries returned. Very useful to test your query before you possibly get a list of thousands fo entries. (optional)
 
 try:
-    # collections
+    # A list of data collections
     api_instance.icoscp_get_collections(id=id, limit=limit)
 except ApiException as e:
     print("Exception when calling DefaultApi->icoscp_get_collections: %s\n" % e)
@@ -71,11 +71,11 @@ All URIs are relative to *http://127.0.0.1:9090/api*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**icoscp_get_collections**](docs/DefaultApi.md#icoscp_get_collections) | **GET** /collections/ | collections
-*DefaultApi* | [**icoscp_get_data**](docs/DefaultApi.md#icoscp_get_data) | **GET** /data/ | data
-*DefaultApi* | [**icoscp_get_download**](docs/DefaultApi.md#icoscp_get_download) | **GET** /download/ | 
-*DefaultApi* | [**icoscp_get_provisional_stations**](docs/DefaultApi.md#icoscp_get_provisional_stations) | **GET** /stations/provisional/ | provisional
-*DefaultApi* | [**icoscp_get_stations**](docs/DefaultApi.md#icoscp_get_stations) | **GET** /stations/ | stations
+*DefaultApi* | [**icoscp_get_collections**](docs/DefaultApi.md#icoscp_get_collections) | **GET** /collections | A list of data collections
+*DefaultApi* | [**icoscp_get_data**](docs/DefaultApi.md#icoscp_get_data) | **GET** /data | A list of data objects
+*DefaultApi* | [**icoscp_get_download**](docs/DefaultApi.md#icoscp_get_download) | **GET** /download | Download data
+*DefaultApi* | [**icoscp_get_provisional_stations**](docs/DefaultApi.md#icoscp_get_provisional_stations) | **GET** /stations/provisional | Povisional ICOS stations
+*DefaultApi* | [**icoscp_get_stations**](docs/DefaultApi.md#icoscp_get_stations) | **GET** /stations | A list of ICOS stations
 
 
 ## Documentation For Models

@@ -4,17 +4,17 @@ All URIs are relative to *http://127.0.0.1:9090/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**icoscp_get_collections**](DefaultApi.md#icoscp_get_collections) | **GET** /collections/ | collections
-[**icoscp_get_data**](DefaultApi.md#icoscp_get_data) | **GET** /data/ | data
-[**icoscp_get_download**](DefaultApi.md#icoscp_get_download) | **GET** /download/ | 
-[**icoscp_get_provisional_stations**](DefaultApi.md#icoscp_get_provisional_stations) | **GET** /stations/provisional/ | provisional
-[**icoscp_get_stations**](DefaultApi.md#icoscp_get_stations) | **GET** /stations/ | stations
+[**icoscp_get_collections**](DefaultApi.md#icoscp_get_collections) | **GET** /collections | A list of data collections
+[**icoscp_get_data**](DefaultApi.md#icoscp_get_data) | **GET** /data | A list of data objects
+[**icoscp_get_download**](DefaultApi.md#icoscp_get_download) | **GET** /download | Download data
+[**icoscp_get_provisional_stations**](DefaultApi.md#icoscp_get_provisional_stations) | **GET** /stations/provisional | Povisional ICOS stations
+[**icoscp_get_stations**](DefaultApi.md#icoscp_get_stations) | **GET** /stations | A list of ICOS stations
 
 
 # **icoscp_get_collections**
 > icoscp_get_collections(id=id, limit=limit)
 
-collections
+A list of data collections
 
 No parameters returns a list of collection id's with a short description for each collection (what kind of data is included, size, data object id's.)
 
@@ -32,7 +32,7 @@ id = NULL # object | Collection id returns a list of data object descriptors, in
 limit = 56 # int | limit the amount of entries returned. Very useful to test your query before you possibly get a list of thousands fo entries. (optional)
 
 try:
-    # collections
+    # A list of data collections
     api_instance.icoscp_get_collections(id=id, limit=limit)
 except ApiException as e:
     print("Exception when calling DefaultApi->icoscp_get_collections: %s\n" % e)
@@ -63,7 +63,7 @@ No authorization required
 # **icoscp_get_data**
 > icoscp_get_data(id=id, theme=theme, start_date=start_date, end_date=end_date, variable=variable, limit=limit)
 
-data
+A list of data objects
 
 Download a list of data objects or if you provide a valid data object ID, you get the information about that specific digital object. If you don't set the paramater \"limit\", by default we set a limit of 25.  If you want \"all\" you need to set limit to -1. But be very careful, we have thousands of data objects.
 
@@ -85,7 +85,7 @@ variable = 'variable_example' # str | This is a full list of variables collected
 limit = 56 # int | You can limit the returned list to N entries.  (optional)
 
 try:
-    # data
+    # A list of data objects
     api_instance.icoscp_get_data(id=id, theme=theme, start_date=start_date, end_date=end_date, variable=variable, limit=limit)
 except ApiException as e:
     print("Exception when calling DefaultApi->icoscp_get_data: %s\n" % e)
@@ -120,7 +120,7 @@ No authorization required
 # **icoscp_get_download**
 > icoscp_get_download(id, format=format)
 
-
+Download data
 
 Download specific data objects.
 
@@ -138,6 +138,7 @@ id = NULL # list[object] | Digital object identifier.Provide an array of id's in
 format = 'format_example' # str | The files you download are normally combined with meta data, licence information citation strings, etc. Hence we will pack these files together. By default you get a zip file. (optional)
 
 try:
+    # Download data
     api_instance.icoscp_get_download(id, format=format)
 except ApiException as e:
     print("Exception when calling DefaultApi->icoscp_get_download: %s\n" % e)
@@ -168,7 +169,7 @@ No authorization required
 # **icoscp_get_provisional_stations**
 > icoscp_get_provisional_stations(country=country, theme=theme)
 
-provisional
+Povisional ICOS stations
 
 get a list of icos stations in the labeling process
 
@@ -186,7 +187,7 @@ country = 'country_example' # str | Returns a list of stations for a specific co
 theme = 'theme_example' # str | ICOS has three main distinction of themes, where green hous gas measurments are collected: OTC (Ocean), ETC (Ecosystem), ATC (Atmosphere).  (optional)
 
 try:
-    # provisional
+    # Povisional ICOS stations
     api_instance.icoscp_get_provisional_stations(country=country, theme=theme)
 except ApiException as e:
     print("Exception when calling DefaultApi->icoscp_get_provisional_stations: %s\n" % e)
@@ -217,7 +218,7 @@ No authorization required
 # **icoscp_get_stations**
 > icoscp_get_stations(country=country, id=id, theme=theme, _class=_class, bb=bb)
 
-stations
+A list of ICOS stations
 
 without any parameters returns a list of all labeled and certified ICOS stations.
 
@@ -238,7 +239,7 @@ _class = '_class_example' # str | ICOS has two levels of station classifiction. 
 bb = [3.4] # list[float] | bounding box. If you provide latitude and longitude of the top left corner and bottom right corner of a box, you will get a list of icos stations within that box. Example: api/stations?bb=[50,-10, 30, 15] (optional)
 
 try:
-    # stations
+    # A list of ICOS stations
     api_instance.icoscp_get_stations(country=country, id=id, theme=theme, _class=_class, bb=bb)
 except ApiException as e:
     print("Exception when calling DefaultApi->icoscp_get_stations: %s\n" % e)
