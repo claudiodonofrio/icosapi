@@ -1,0 +1,249 @@
+---
+openapi: 3.0.2
+info:
+  title: ICOS
+  description: |-
+    Access to data and metadata from the european Integrated Carbon Observation
+    System, ICOS. The Carbon Poral is a one stop shop for european high quality
+    greenhouse gas measurements.
+
+    This API is for users who like to have an easy access to the most common
+    data objects and information about the research stations.
+  contact:
+    name: ICOS Carbon Portal
+    url: https://www.icos-cp.eu
+    email: info@icos-cp.eu
+  license:
+    name: GNU AGPLv3
+    url: https://www.gnu.org/licenses/agpl.txt
+  version: 0.1.0
+servers:
+- url: http://127.0.0.1:9090/api
+  description: local development server
+paths:
+  /stations/:
+    summary: Return a list of certified ICOS stations.
+    description: |-
+      A data collection is a group of data object as an official ICOS release.
+      Containing QA/QC observations from certified ICOS stations.
+    get:
+      summary: stations
+      description: without any parameters returns a list of all labeled and certified
+        ICOS stations.
+      operationId: icoscp.get_stations
+      responses:
+        200:
+          description: ICOS certified stations
+    parameters:
+    - name: country
+      in: query
+      description: |-
+        Returns a list of stations for a specific country.
+        https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#WO
+      schema:
+        type: string
+    - name: id
+      in: query
+      description: |-
+        Return the metadata about an ICOS station. The same information as seen online at the "landing page".
+        The landing page URL is returned with the parameter "url"
+      schema:
+        type: string
+    - name: theme
+      in: query
+      description: |
+        ICOS has three main distinction of themes, where green hous gas measurments are collected:
+        OTC (Ocean), ETC (Ecosystem), ATC (Atmosphere).
+      schema:
+        enum:
+        - ATC
+        - ETC
+        - OTC
+    - name: class
+      in: query
+      description: |
+        ICOS has two levels of station classifiction.
+        Class 2: a minimum common set of variables for each theme are collected.
+        Class 1: on top of Class 2, a defined extended set of variables is measured.
+      schema:
+        enum:
+        - "1"
+        - "2"
+    - name: bb
+      in: query
+      description: |-
+        bounding box. If you provide latitude and longitude of the top left corner and bottom right corner of a box, you will get a list of icos stations within that box.
+        Example: api/stations?bb=[50,-10, 30, 15]
+      schema:
+        type: array
+        items:
+          type: number
+  /collections/:
+    summary: Return a list of data collections.
+    description: |+
+      A collection is a manually created assembly of data objects
+      for a specific theme, project or area of interest.
+
+    get:
+      summary: collections
+      description: |-
+        No parameters returns a list of collection id's with a short description
+        for each collection (what kind of data is included, size, data object id's.)
+      operationId: icoscp.get_collections
+      responses:
+        200:
+          description: data collection
+    parameters:
+    - name: id
+      in: query
+      description: |
+        Collection id returns a list of data object descriptors,
+        included in a specific collection.
+      schema: {}
+    - name: limit
+      in: query
+      description: limit the amount of entries returned. Very useful to test your
+        query before you possibly get a list of thousands fo entries.
+      schema:
+        type: integer
+  /data/:
+    summary: Return a list of data objects.
+    description: |-
+      ICOS provides access to high quality greenhouse gas measurements across europe.
+      You may download and use  data for free, but don't forget to cite where the data
+      is coming from.
+    get:
+      summary: data
+      description: "Download a list of data objects or if you provide a valid data\
+        \ object ID, you\nget the information about that specific digital object.\n\
+        If you don't set the paramater \"limit\", by default we set a limit of 25.\
+        \ \nIf you want \"all\" you need to set limit to -1. But be very careful,\
+        \ we have\nthousands of data objects."
+      operationId: icoscp.get_data
+      responses:
+        200:
+          description: OK
+    parameters:
+    - name: id
+      in: query
+      description: please provide a vlid digital object id to download data
+      required: false
+      schema:
+        type: string
+    - name: theme
+      in: query
+      description: |-
+        This is a filter for data belonging to:
+        - ATC (atmosphere)
+        - ETC (ecosystem)
+        - OTC (ocean)
+      schema:
+        enum:
+        - ATC
+        - ETC
+        - OTC
+    - name: startDate
+      in: query
+      description: |
+        The measurement/observation data first time stamp is...yyyymmdd
+      required: false
+      schema:
+        type: integer
+    - name: endDate
+      in: query
+      description: The measurement/observation data last time stamp is...yyyymmdd
+      schema:
+        type: integer
+    - name: variable
+      in: query
+      description: |-
+        This is a full list of variables collected from the ICOS stations.
+        Depending on the THEME and CLASS of the station, not all the variables are
+        available.
+      required: false
+      schema:
+        enum:
+        - OTC_Sea_surface_fCO2
+        - OTC_Water_vapour_pressure
+        - OTC_Atmospheric_xCO2
+        - ETC_CO2_fluxes
+        - ETC_CH4_fluxes
+        - ETC_N2O_fluxes
+        - ETC_Soil_Heat_fluxes
+        - ETC_Soil_CO2_automatic_chambers
+        - ATC_CO2
+        - ATC_CH4
+        - ATC_CO
+        - ATC_Air_temperature
+        - ATC_Relative_humidity
+        - ATC_Wind_direction
+    - name: limit
+      in: query
+      description: |
+        You can limit the returned list to N entries.
+      schema:
+        type: integer
+  /download/:
+    summary: Download data.
+    description: "Here you have acces to the measurements.\nYou can provide a single\
+      \ data object ID, or an array of ID's to download\nmultiple files with one call.\n\
+      \nExample for single file download: \napi/download?id=123456\n\nExample for\
+      \ multifile download:\napi/download?id=[123456, 789123, 456123]"
+    get:
+      description: Download specific data objects.
+      operationId: icoscp.get_download
+      responses:
+        200:
+          description: download completed
+    parameters:
+    - name: id
+      in: query
+      description: |-
+        Digital object identifier.Provide an array of id's in the form
+        [id1, id2, id3]. For a single file you still need to provide an array, with
+        only one entry [id1].
+      required: true
+      schema:
+        type: array
+        items: {}
+    - name: format
+      in: query
+      description: |-
+        The files you download are normally combined with meta data, licence information
+        citation strings, etc. Hence we will pack these files together.
+        By default you get a zip file.
+      schema:
+        enum:
+        - zip
+        - tar
+        - bin
+  /stations/provisional/:
+    summary: Return a list if stations currently in the labeling process.
+    get:
+      summary: provisional
+      description: get a list of icos stations in the labeling process
+      operationId: icoscp.get_provisional_stations
+      responses:
+        200:
+          description: provisional icos stations
+    parameters:
+    - name: country
+      in: query
+      description: |-
+        Returns a list of stations for a specific country.
+        https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#WO
+      schema:
+        type: string
+    - name: theme
+      in: query
+      description: |
+        ICOS has three main distinction of themes, where green hous gas measurments are collected:
+        OTC (Ocean), ETC (Ecosystem), ATC (Atmosphere).
+      schema:
+        enum:
+        - ATC
+        - ETC
+        - OTC
+tags:
+- name: ICOS
+  description: Integrated Carbon Obeservation System
