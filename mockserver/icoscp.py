@@ -47,6 +47,6 @@ def get_provisional_stations(**param):
 
 if __name__ == '__main__':
     # create the flask web app
-    app = connexion.FlaskApp(__name__, host='127.0.0.1', port=9090, specification_dir='openapi/')
-    app.add_api('icoscp.yaml', arguments={'title': 'Carbon Portal API example'})
+    app = connexion.FlaskApp(__name__, host='127.0.0.1', port=9090, specification_dir='../')
+    app.add_api('icos-cp-api.yaml', arguments={'title': 'Carbon Portal API example'})
     app.run()
