@@ -1,6 +1,6 @@
 /**
  * ICOS
- * Access to data and metadata from the european Integrated Carbon Observation System, ICOS. The Carbon Poral is a one stop shop for european high quality greenhouse gas measurements.  This API is for users who like to have an easy access to the most common data objects and information about the research stations.
+ * Access to data and metadata from the european Integrated Carbon Observation System, ICOS. The Carbon Portal is a one stop shop for european high quality greenhouse gas measurements.  This API is for users who like to have an easy access to the most common data objects and information about the research stations. Please note,  that not all of the data objects and information is available through the API. For example we server only Level 2 data objects. If in doubt, please visit https://www.icos-cp.eu/about-icos-data to learn more. 
  *
  * OpenAPI spec version: 0.1.0
  * Contact: info@icos-cp.eu
@@ -105,16 +105,20 @@ class DefaultApi(
    * A list of data objects
    * Download a list of data objects or if you provide a valid data object ID, you get the information about that specific digital object. If you don&#39;t set the paramater \&quot;limit\&quot;, by default we set a limit of 25.  If you want \&quot;all\&quot; you need to set limit to -1. But be very careful, we have thousands of data objects.
    *
-   * @param id please provide a vlid digital object id to download data (optional)
+   * @param bb BoundingBox. If you provide latitude and longitude of the top left corner and bottom right corner of a box, you will get a list of icos stations within that box. Example: api/stations?bb&#x3D;[50,-10, 30, 15] (optional, default to new ListBuffer[Number]() )
+   * @param country Returns a list of stations for a specific country. https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#WO (optional)
+   * @param id Provide a valid digital object id. In return you will get the meta data information about the dataset. If yo want to download the data itself  including the meta data, you need to call /api/download?id&#x3D;1234 (optional)
    * @param theme This is a filter for data belonging to: - ATC (atmosphere) - ETC (ecosystem) - OTC (ocean) (optional)
    * @param startDate The measurement/observation data first time stamp is...yyyymmdd  (optional)
    * @param endDate The measurement/observation data last time stamp is...yyyymmdd (optional)
    * @param variable This is a full list of variables collected from the ICOS stations. Depending on the THEME and CLASS of the station, not all the variables are available. (optional)
    * @param limit You can limit the returned list to N entries.  (optional)
+   * @param stationId You can search for data measured at a specific station. (optional)
+   * @param format By default you will get a list with meta data about the data objects. If you choose the output to be format&#x3D;list you will get an array back, which can be used in the downlad part. You may feed this output directly into /api/download?id&#x3D;list  (optional)
    * @return void
    */
-  def icoscpGetData(id: Option[String] = None, theme: Option[String] = None, startDate: Option[Integer] = None, endDate: Option[Integer] = None, variable: Option[String] = None, limit: Option[Integer] = None) = {
-    val await = Try(Await.result(icoscpGetDataAsync(id, theme, startDate, endDate, variable, limit), Duration.Inf))
+  def icoscpGetData(bb: Option[List[Number]] = Option(new ListBuffer[Number]() ), country: Option[String] = None, id: Option[String] = None, theme: Option[String] = None, startDate: Option[Integer] = None, endDate: Option[Integer] = None, variable: Option[String] = None, limit: Option[Integer] = None, stationId: Option[String] = None, format: Option[String] = None) = {
+    val await = Try(Await.result(icoscpGetDataAsync(bb, country, id, theme, startDate, endDate, variable, limit, stationId, format), Duration.Inf))
     await match {
       case Success(i) => Some(await.get)
       case Failure(t) => None
@@ -125,28 +129,31 @@ class DefaultApi(
    * A list of data objects asynchronously
    * Download a list of data objects or if you provide a valid data object ID, you get the information about that specific digital object. If you don&#39;t set the paramater \&quot;limit\&quot;, by default we set a limit of 25.  If you want \&quot;all\&quot; you need to set limit to -1. But be very careful, we have thousands of data objects.
    *
-   * @param id please provide a vlid digital object id to download data (optional)
+   * @param bb BoundingBox. If you provide latitude and longitude of the top left corner and bottom right corner of a box, you will get a list of icos stations within that box. Example: api/stations?bb&#x3D;[50,-10, 30, 15] (optional, default to new ListBuffer[Number]() )
+   * @param country Returns a list of stations for a specific country. https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#WO (optional)
+   * @param id Provide a valid digital object id. In return you will get the meta data information about the dataset. If yo want to download the data itself  including the meta data, you need to call /api/download?id&#x3D;1234 (optional)
    * @param theme This is a filter for data belonging to: - ATC (atmosphere) - ETC (ecosystem) - OTC (ocean) (optional)
    * @param startDate The measurement/observation data first time stamp is...yyyymmdd  (optional)
    * @param endDate The measurement/observation data last time stamp is...yyyymmdd (optional)
    * @param variable This is a full list of variables collected from the ICOS stations. Depending on the THEME and CLASS of the station, not all the variables are available. (optional)
    * @param limit You can limit the returned list to N entries.  (optional)
+   * @param stationId You can search for data measured at a specific station. (optional)
+   * @param format By default you will get a list with meta data about the data objects. If you choose the output to be format&#x3D;list you will get an array back, which can be used in the downlad part. You may feed this output directly into /api/download?id&#x3D;list  (optional)
    * @return Future(void)
    */
-  def icoscpGetDataAsync(id: Option[String] = None, theme: Option[String] = None, startDate: Option[Integer] = None, endDate: Option[Integer] = None, variable: Option[String] = None, limit: Option[Integer] = None) = {
-      helper.icoscpGetData(id, theme, startDate, endDate, variable, limit)
+  def icoscpGetDataAsync(bb: Option[List[Number]] = Option(new ListBuffer[Number]() ), country: Option[String] = None, id: Option[String] = None, theme: Option[String] = None, startDate: Option[Integer] = None, endDate: Option[Integer] = None, variable: Option[String] = None, limit: Option[Integer] = None, stationId: Option[String] = None, format: Option[String] = None) = {
+      helper.icoscpGetData(bb, country, id, theme, startDate, endDate, variable, limit, stationId, format)
   }
 
   /**
    * Download data
    * Download specific data objects.
    *
-   * @param id Digital object identifier.Provide an array of id&#39;s in the form [id1, id2, id3]. For a single file you still need to provide an array, with only one entry [id1]. 
-   * @param format The files you download are normally combined with meta data, licence information citation strings, etc. Hence we will pack these files together. By default you get a zip file. (optional)
+   * @param id Please provide an array of digital object identifiers (PID) as single argument for one file, or an array for multiple files Example single file: /api/downlad?id&#x3D;123456 Example multi file: /api/downlad?id&#x3D;[123456, 4362346, 32452345+, 1325415432lk3]  
    * @return void
    */
-  def icoscpGetDownload(id: List[Any] = new ListBuffer[Any]() , format: Option[String] = None) = {
-    val await = Try(Await.result(icoscpGetDownloadAsync(id, format), Duration.Inf))
+  def icoscpGetDownload(id: Any) = {
+    val await = Try(Await.result(icoscpGetDownloadAsync(id), Duration.Inf))
     await match {
       case Success(i) => Some(await.get)
       case Failure(t) => None
@@ -157,12 +164,11 @@ class DefaultApi(
    * Download data asynchronously
    * Download specific data objects.
    *
-   * @param id Digital object identifier.Provide an array of id&#39;s in the form [id1, id2, id3]. For a single file you still need to provide an array, with only one entry [id1]. 
-   * @param format The files you download are normally combined with meta data, licence information citation strings, etc. Hence we will pack these files together. By default you get a zip file. (optional)
+   * @param id Please provide an array of digital object identifiers (PID) as single argument for one file, or an array for multiple files Example single file: /api/downlad?id&#x3D;123456 Example multi file: /api/downlad?id&#x3D;[123456, 4362346, 32452345+, 1325415432lk3]  
    * @return Future(void)
    */
-  def icoscpGetDownloadAsync(id: List[Any] = new ListBuffer[Any]() , format: Option[String] = None) = {
-      helper.icoscpGetDownload(id, format)
+  def icoscpGetDownloadAsync(id: Any) = {
+      helper.icoscpGetDownload(id)
   }
 
   /**
@@ -200,12 +206,11 @@ class DefaultApi(
    * @param country Returns a list of stations for a specific country. https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#WO (optional)
    * @param id Return the metadata about an ICOS station. The same information as seen online at the \&quot;landing page\&quot;. The landing page URL is returned with the parameter \&quot;url\&quot; (optional)
    * @param theme ICOS has three main distinction of themes, where green hous gas measurments are collected: OTC (Ocean), ETC (Ecosystem), ATC (Atmosphere).  (optional)
-   * @param `class` ICOS has two levels of station classifiction. Class 2: a minimum common set of variables for each theme are collected. Class 1: on top of Class 2, a defined extended set of variables is measured.  (optional)
-   * @param bb bounding box. If you provide latitude and longitude of the top left corner and bottom right corner of a box, you will get a list of icos stations within that box. Example: api/stations?bb&#x3D;[50,-10, 30, 15] (optional, default to new ListBuffer[Number]() )
+   * @param bb BoundingBox. If you provide latitude and longitude of the top left corner and bottom right corner of a box, you will get a list of icos stations within that box. Example: api/stations?bb&#x3D;[50,-10, 30, 15] (optional, default to new ListBuffer[Number]() )
    * @return void
    */
-  def icoscpGetStations(country: Option[String] = None, id: Option[String] = None, theme: Option[String] = None, `class`: Option[String] = None, bb: Option[List[Number]] = Option(new ListBuffer[Number]() )) = {
-    val await = Try(Await.result(icoscpGetStationsAsync(country, id, theme, `class`, bb), Duration.Inf))
+  def icoscpGetStations(country: Option[String] = None, id: Option[String] = None, theme: Option[String] = None, bb: Option[List[Number]] = Option(new ListBuffer[Number]() )) = {
+    val await = Try(Await.result(icoscpGetStationsAsync(country, id, theme, bb), Duration.Inf))
     await match {
       case Success(i) => Some(await.get)
       case Failure(t) => None
@@ -219,12 +224,11 @@ class DefaultApi(
    * @param country Returns a list of stations for a specific country. https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#WO (optional)
    * @param id Return the metadata about an ICOS station. The same information as seen online at the \&quot;landing page\&quot;. The landing page URL is returned with the parameter \&quot;url\&quot; (optional)
    * @param theme ICOS has three main distinction of themes, where green hous gas measurments are collected: OTC (Ocean), ETC (Ecosystem), ATC (Atmosphere).  (optional)
-   * @param `class` ICOS has two levels of station classifiction. Class 2: a minimum common set of variables for each theme are collected. Class 1: on top of Class 2, a defined extended set of variables is measured.  (optional)
-   * @param bb bounding box. If you provide latitude and longitude of the top left corner and bottom right corner of a box, you will get a list of icos stations within that box. Example: api/stations?bb&#x3D;[50,-10, 30, 15] (optional, default to new ListBuffer[Number]() )
+   * @param bb BoundingBox. If you provide latitude and longitude of the top left corner and bottom right corner of a box, you will get a list of icos stations within that box. Example: api/stations?bb&#x3D;[50,-10, 30, 15] (optional, default to new ListBuffer[Number]() )
    * @return Future(void)
    */
-  def icoscpGetStationsAsync(country: Option[String] = None, id: Option[String] = None, theme: Option[String] = None, `class`: Option[String] = None, bb: Option[List[Number]] = Option(new ListBuffer[Number]() )) = {
-      helper.icoscpGetStations(country, id, theme, `class`, bb)
+  def icoscpGetStationsAsync(country: Option[String] = None, id: Option[String] = None, theme: Option[String] = None, bb: Option[List[Number]] = Option(new ListBuffer[Number]() )) = {
+      helper.icoscpGetStations(country, id, theme, bb)
   }
 
 }
@@ -256,20 +260,32 @@ class DefaultApiAsyncHelper(client: TransportClient, config: SwaggerConfig) exte
     }
   }
 
-  def icoscpGetData(id: Option[String] = None,
+  def icoscpGetData(bb: Option[List[Number]] = Option(new ListBuffer[Number]() ),
+    country: Option[String] = None,
+    id: Option[String] = None,
     theme: Option[String] = None,
     startDate: Option[Integer] = None,
     endDate: Option[Integer] = None,
     variable: Option[String] = None,
-    limit: Option[Integer] = None
+    limit: Option[Integer] = None,
+    stationId: Option[String] = None,
+    format: Option[String] = None
     )(implicit reader: ClientResponseReader[Unit]): Future[Unit] = {
     // create path and map variables
-    val path = (addFmt("/data"))
+    val path = (addFmt("/search"))
 
     // query params
     val queryParams = new mutable.HashMap[String, String]
     val headerParams = new mutable.HashMap[String, String]
 
+    bb match {
+      case Some(param) => queryParams += "bb" -> param.toString
+      case _ => queryParams
+    }
+    country match {
+      case Some(param) => queryParams += "country" -> param.toString
+      case _ => queryParams
+    }
     id match {
       case Some(param) => queryParams += "id" -> param.toString
       case _ => queryParams
@@ -294,6 +310,14 @@ class DefaultApiAsyncHelper(client: TransportClient, config: SwaggerConfig) exte
       case Some(param) => queryParams += "limit" -> param.toString
       case _ => queryParams
     }
+    stationId match {
+      case Some(param) => queryParams += "stationId" -> param.toString
+      case _ => queryParams
+    }
+    format match {
+      case Some(param) => queryParams += "format" -> param.toString
+      case _ => queryParams
+    }
 
     val resFuture = client.submit("GET", path, queryParams.toMap, headerParams.toMap, "")
     resFuture flatMap { resp =>
@@ -301,9 +325,7 @@ class DefaultApiAsyncHelper(client: TransportClient, config: SwaggerConfig) exte
     }
   }
 
-  def icoscpGetDownload(id: List[Any] = new ListBuffer[Any]() ,
-    format: Option[String] = None
-    )(implicit reader: ClientResponseReader[Unit]): Future[Unit] = {
+  def icoscpGetDownload(id: Any)(implicit reader: ClientResponseReader[Unit]): Future[Unit] = {
     // create path and map variables
     val path = (addFmt("/download"))
 
@@ -313,10 +335,6 @@ class DefaultApiAsyncHelper(client: TransportClient, config: SwaggerConfig) exte
 
     if (id == null) throw new Exception("Missing required parameter 'id' when calling DefaultApi->icoscpGetDownload")
     queryParams += "id" -> id.toString
-    format match {
-      case Some(param) => queryParams += "format" -> param.toString
-      case _ => queryParams
-    }
 
     val resFuture = client.submit("GET", path, queryParams.toMap, headerParams.toMap, "")
     resFuture flatMap { resp =>
@@ -352,7 +370,6 @@ class DefaultApiAsyncHelper(client: TransportClient, config: SwaggerConfig) exte
   def icoscpGetStations(country: Option[String] = None,
     id: Option[String] = None,
     theme: Option[String] = None,
-    `class`: Option[String] = None,
     bb: Option[List[Number]] = Option(new ListBuffer[Number]() )
     )(implicit reader: ClientResponseReader[Unit]): Future[Unit] = {
     // create path and map variables
@@ -372,10 +389,6 @@ class DefaultApiAsyncHelper(client: TransportClient, config: SwaggerConfig) exte
     }
     theme match {
       case Some(param) => queryParams += "theme" -> param.toString
-      case _ => queryParams
-    }
-    `class` match {
-      case Some(param) => queryParams += "class" -> param.toString
       case _ => queryParams
     }
     bb match {

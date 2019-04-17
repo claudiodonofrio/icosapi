@@ -3,7 +3,7 @@
 """
     ICOS
 
-    Access to data and metadata from the european Integrated Carbon Observation System, ICOS. The Carbon Poral is a one stop shop for european high quality greenhouse gas measurements.  This API is for users who like to have an easy access to the most common data objects and information about the research stations.  # noqa: E501
+    Access to data and metadata from the european Integrated Carbon Observation System, ICOS. The Carbon Portal is a one stop shop for european high quality greenhouse gas measurements.  This API is for users who like to have an easy access to the most common data objects and information about the research stations. Please note,  that not all of the data objects and information is available through the API. For example we server only Level 2 data objects. If in doubt, please visit https://www.icos-cp.eu/about-icos-data to learn more.   # noqa: E501
 
     OpenAPI spec version: 0.1.0
     Contact: info@icos-cp.eu
@@ -135,12 +135,16 @@ class DefaultApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str id: please provide a vlid digital object id to download data
+        :param list[float] bb: BoundingBox. If you provide latitude and longitude of the top left corner and bottom right corner of a box, you will get a list of icos stations within that box. Example: api/stations?bb=[50,-10, 30, 15]
+        :param str country: Returns a list of stations for a specific country. https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#WO
+        :param str id: Provide a valid digital object id. In return you will get the meta data information about the dataset. If yo want to download the data itself  including the meta data, you need to call /api/download?id=1234
         :param str theme: This is a filter for data belonging to: - ATC (atmosphere) - ETC (ecosystem) - OTC (ocean)
         :param int start_date: The measurement/observation data first time stamp is...yyyymmdd 
         :param int end_date: The measurement/observation data last time stamp is...yyyymmdd
         :param str variable: This is a full list of variables collected from the ICOS stations. Depending on the THEME and CLASS of the station, not all the variables are available.
         :param int limit: You can limit the returned list to N entries. 
+        :param str station_id: You can search for data measured at a specific station.
+        :param str format: By default you will get a list with meta data about the data objects. If you choose the output to be format=list you will get an array back, which can be used in the downlad part. You may feed this output directly into /api/download?id=list 
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -162,12 +166,16 @@ class DefaultApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str id: please provide a vlid digital object id to download data
+        :param list[float] bb: BoundingBox. If you provide latitude and longitude of the top left corner and bottom right corner of a box, you will get a list of icos stations within that box. Example: api/stations?bb=[50,-10, 30, 15]
+        :param str country: Returns a list of stations for a specific country. https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#WO
+        :param str id: Provide a valid digital object id. In return you will get the meta data information about the dataset. If yo want to download the data itself  including the meta data, you need to call /api/download?id=1234
         :param str theme: This is a filter for data belonging to: - ATC (atmosphere) - ETC (ecosystem) - OTC (ocean)
         :param int start_date: The measurement/observation data first time stamp is...yyyymmdd 
         :param int end_date: The measurement/observation data last time stamp is...yyyymmdd
         :param str variable: This is a full list of variables collected from the ICOS stations. Depending on the THEME and CLASS of the station, not all the variables are available.
         :param int limit: You can limit the returned list to N entries. 
+        :param str station_id: You can search for data measured at a specific station.
+        :param str format: By default you will get a list with meta data about the data objects. If you choose the output to be format=list you will get an array back, which can be used in the downlad part. You may feed this output directly into /api/download?id=list 
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -175,7 +183,7 @@ class DefaultApi(object):
 
         local_var_params = locals()
 
-        all_params = ['id', 'theme', 'start_date', 'end_date', 'variable', 'limit']  # noqa: E501
+        all_params = ['bb', 'country', 'id', 'theme', 'start_date', 'end_date', 'variable', 'limit', 'station_id', 'format']  # noqa: E501
         all_params.append('async_req')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -195,6 +203,11 @@ class DefaultApi(object):
         path_params = {}
 
         query_params = []
+        if 'bb' in local_var_params:
+            query_params.append(('bb', local_var_params['bb']))  # noqa: E501
+            collection_formats['bb'] = 'multi'  # noqa: E501
+        if 'country' in local_var_params:
+            query_params.append(('country', local_var_params['country']))  # noqa: E501
         if 'id' in local_var_params:
             query_params.append(('id', local_var_params['id']))  # noqa: E501
         if 'theme' in local_var_params:
@@ -207,6 +220,10 @@ class DefaultApi(object):
             query_params.append(('variable', local_var_params['variable']))  # noqa: E501
         if 'limit' in local_var_params:
             query_params.append(('limit', local_var_params['limit']))  # noqa: E501
+        if 'station_id' in local_var_params:
+            query_params.append(('stationId', local_var_params['station_id']))  # noqa: E501
+        if 'format' in local_var_params:
+            query_params.append(('format', local_var_params['format']))  # noqa: E501
 
         header_params = {}
 
@@ -218,7 +235,7 @@ class DefaultApi(object):
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/data', 'GET',
+            '/search', 'GET',
             path_params,
             query_params,
             header_params,
@@ -243,8 +260,7 @@ class DefaultApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param list[object] id: Digital object identifier.Provide an array of id's in the form [id1, id2, id3]. For a single file you still need to provide an array, with only one entry [id1]. (required)
-        :param str format: The files you download are normally combined with meta data, licence information citation strings, etc. Hence we will pack these files together. By default you get a zip file.
+        :param object id: Please provide an array of digital object identifiers (PID) as single argument for one file, or an array for multiple files Example single file: /api/downlad?id=123456 Example multi file: /api/downlad?id=[123456, 4362346, 32452345+, 1325415432lk3]  (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -266,8 +282,7 @@ class DefaultApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param list[object] id: Digital object identifier.Provide an array of id's in the form [id1, id2, id3]. For a single file you still need to provide an array, with only one entry [id1]. (required)
-        :param str format: The files you download are normally combined with meta data, licence information citation strings, etc. Hence we will pack these files together. By default you get a zip file.
+        :param object id: Please provide an array of digital object identifiers (PID) as single argument for one file, or an array for multiple files Example single file: /api/downlad?id=123456 Example multi file: /api/downlad?id=[123456, 4362346, 32452345+, 1325415432lk3]  (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -275,7 +290,7 @@ class DefaultApi(object):
 
         local_var_params = locals()
 
-        all_params = ['id', 'format']  # noqa: E501
+        all_params = ['id']  # noqa: E501
         all_params.append('async_req')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -301,9 +316,6 @@ class DefaultApi(object):
         query_params = []
         if 'id' in local_var_params:
             query_params.append(('id', local_var_params['id']))  # noqa: E501
-            collection_formats['id'] = 'multi'  # noqa: E501
-        if 'format' in local_var_params:
-            query_params.append(('format', local_var_params['format']))  # noqa: E501
 
         header_params = {}
 
@@ -435,8 +447,7 @@ class DefaultApi(object):
         :param str country: Returns a list of stations for a specific country. https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#WO
         :param str id: Return the metadata about an ICOS station. The same information as seen online at the \"landing page\". The landing page URL is returned with the parameter \"url\"
         :param str theme: ICOS has three main distinction of themes, where green hous gas measurments are collected: OTC (Ocean), ETC (Ecosystem), ATC (Atmosphere). 
-        :param str _class: ICOS has two levels of station classifiction. Class 2: a minimum common set of variables for each theme are collected. Class 1: on top of Class 2, a defined extended set of variables is measured. 
-        :param list[float] bb: bounding box. If you provide latitude and longitude of the top left corner and bottom right corner of a box, you will get a list of icos stations within that box. Example: api/stations?bb=[50,-10, 30, 15]
+        :param list[float] bb: BoundingBox. If you provide latitude and longitude of the top left corner and bottom right corner of a box, you will get a list of icos stations within that box. Example: api/stations?bb=[50,-10, 30, 15]
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -461,8 +472,7 @@ class DefaultApi(object):
         :param str country: Returns a list of stations for a specific country. https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#WO
         :param str id: Return the metadata about an ICOS station. The same information as seen online at the \"landing page\". The landing page URL is returned with the parameter \"url\"
         :param str theme: ICOS has three main distinction of themes, where green hous gas measurments are collected: OTC (Ocean), ETC (Ecosystem), ATC (Atmosphere). 
-        :param str _class: ICOS has two levels of station classifiction. Class 2: a minimum common set of variables for each theme are collected. Class 1: on top of Class 2, a defined extended set of variables is measured. 
-        :param list[float] bb: bounding box. If you provide latitude and longitude of the top left corner and bottom right corner of a box, you will get a list of icos stations within that box. Example: api/stations?bb=[50,-10, 30, 15]
+        :param list[float] bb: BoundingBox. If you provide latitude and longitude of the top left corner and bottom right corner of a box, you will get a list of icos stations within that box. Example: api/stations?bb=[50,-10, 30, 15]
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -470,7 +480,7 @@ class DefaultApi(object):
 
         local_var_params = locals()
 
-        all_params = ['country', 'id', 'theme', '_class', 'bb']  # noqa: E501
+        all_params = ['country', 'id', 'theme', 'bb']  # noqa: E501
         all_params.append('async_req')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -496,8 +506,6 @@ class DefaultApi(object):
             query_params.append(('id', local_var_params['id']))  # noqa: E501
         if 'theme' in local_var_params:
             query_params.append(('theme', local_var_params['theme']))  # noqa: E501
-        if '_class' in local_var_params:
-            query_params.append(('class', local_var_params['_class']))  # noqa: E501
         if 'bb' in local_var_params:
             query_params.append(('bb', local_var_params['bb']))  # noqa: E501
             collection_formats['bb'] = 'multi'  # noqa: E501

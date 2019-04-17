@@ -867,10 +867,13 @@ ul.nav-tabs {
             <hr>
             <div id="app-description" class="app-desc">
                 <p>Access to data and metadata from the european Integrated Carbon Observation
-System, ICOS. The Carbon Poral is a one stop shop for european high quality
+System, ICOS. The Carbon Portal is a one stop shop for european high quality
 greenhouse gas measurements.</p>
 <p>This API is for users who like to have an easy access to the most common
-data objects and information about the research stations.</p>
+data objects and information about the research stations. Please note,
+that not all of the data objects and information is available through the API.
+For example we server only Level 2 data objects.
+If in doubt, please visit https://www.icos-cp.eu/about-icos-data to learn more.</p>
 
             </div>
           </div>
@@ -1225,7 +1228,7 @@ If you want &quot;all&quot; you need to set limit to -1. But be very careful, we
 thousands of data objects.</p>
                         <p></p>
                         <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/data</span></code></pre>
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/search</span></code></pre>
                         <p>
                           <h3>Usage and SDK Samples</h3>
                         </p>
@@ -1246,7 +1249,7 @@ thousands of data objects.</p>
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Default-icoscp.getData-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://127.0.0.1:9090/api/data?id=&theme=&startDate=&endDate=&variable=&limit="</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://127.0.0.1:9090/api/search?bb=&country=&id=&theme=&startDate=&endDate=&variable=&limit=&stationId=&format="</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Default-icoscp.getData-0-java">
                             <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
@@ -1262,7 +1265,13 @@ public class DefaultApiExample {
     public static void main(String[] args) {
         
         DefaultApi apiInstance = new DefaultApi();
-        String id = id_example; // String | please provide a vlid digital object id to download data
+        array[BigDecimal] bb = ; // array[BigDecimal] | BoundingBox. If you provide latitude and longitude of the top left corner and bottom right corner of a box, you will get a list of icos stations within that box.
+Example: api/stations?bb=[50,-10, 30, 15]
+        String country = country_example; // String | Returns a list of stations for a specific country.
+https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#WO
+        String id = id_example; // String | Provide a valid digital object id. In return you will get the meta data
+information about the dataset. If yo want to download the data itself 
+including the meta data, you need to call /api/download?id=1234
         String theme = theme_example; // String | This is a filter for data belonging to:
 - ATC (atmosphere)
 - ETC (ecosystem)
@@ -1275,8 +1284,14 @@ Depending on the THEME and CLASS of the station, not all the variables are
 available.
         Integer limit = 56; // Integer | You can limit the returned list to N entries.
 
+        String stationId = stationId_example; // String | You can search for data measured at a specific station.
+        String format = format_example; // String | By default you will get a list with meta data about the data objects.
+If you choose the output to be format=list
+you will get an array back, which can be used in the downlad part.
+You may feed this output directly into /api/download?id=list
+
         try {
-            apiInstance.icoscp.getData(id, theme, startDate, endDate, variable, limit);
+            apiInstance.icoscp.getData(bb, country, id, theme, startDate, endDate, variable, limit, stationId, format);
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#icoscp.getData");
             e.printStackTrace();
@@ -1292,7 +1307,13 @@ public class DefaultApiExample {
 
     public static void main(String[] args) {
         DefaultApi apiInstance = new DefaultApi();
-        String id = id_example; // String | please provide a vlid digital object id to download data
+        array[BigDecimal] bb = ; // array[BigDecimal] | BoundingBox. If you provide latitude and longitude of the top left corner and bottom right corner of a box, you will get a list of icos stations within that box.
+Example: api/stations?bb=[50,-10, 30, 15]
+        String country = country_example; // String | Returns a list of stations for a specific country.
+https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#WO
+        String id = id_example; // String | Provide a valid digital object id. In return you will get the meta data
+information about the dataset. If yo want to download the data itself 
+including the meta data, you need to call /api/download?id=1234
         String theme = theme_example; // String | This is a filter for data belonging to:
 - ATC (atmosphere)
 - ETC (ecosystem)
@@ -1305,8 +1326,14 @@ Depending on the THEME and CLASS of the station, not all the variables are
 available.
         Integer limit = 56; // Integer | You can limit the returned list to N entries.
 
+        String stationId = stationId_example; // String | You can search for data measured at a specific station.
+        String format = format_example; // String | By default you will get a list with meta data about the data objects.
+If you choose the output to be format=list
+you will get an array back, which can be used in the downlad part.
+You may feed this output directly into /api/download?id=list
+
         try {
-            apiInstance.icoscp.getData(id, theme, startDate, endDate, variable, limit);
+            apiInstance.icoscp.getData(bb, country, id, theme, startDate, endDate, variable, limit, stationId, format);
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#icoscp.getData");
             e.printStackTrace();
@@ -1319,7 +1346,13 @@ available.
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
                             <div class="tab-pane" id="examples-Default-icoscp.getData-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">String *id = id_example; // please provide a vlid digital object id to download data (optional) (default to null)
+                              <pre class="prettyprint"><code class="language-cpp">array[BigDecimal] *bb = ; // BoundingBox. If you provide latitude and longitude of the top left corner and bottom right corner of a box, you will get a list of icos stations within that box.
+Example: api/stations?bb=[50,-10, 30, 15] (optional) (default to null)
+String *country = country_example; // Returns a list of stations for a specific country.
+https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#WO (optional) (default to null)
+String *id = id_example; // Provide a valid digital object id. In return you will get the meta data
+information about the dataset. If yo want to download the data itself 
+including the meta data, you need to call /api/download?id=1234 (optional) (default to null)
 String *theme = theme_example; // This is a filter for data belonging to:
 - ATC (atmosphere)
 - ETC (ecosystem)
@@ -1332,16 +1365,26 @@ Depending on the THEME and CLASS of the station, not all the variables are
 available. (optional) (default to null)
 Integer *limit = 56; // You can limit the returned list to N entries.
  (optional) (default to null)
+String *stationId = stationId_example; // You can search for data measured at a specific station. (optional) (default to null)
+String *format = format_example; // By default you will get a list with meta data about the data objects.
+If you choose the output to be format=list
+you will get an array back, which can be used in the downlad part.
+You may feed this output directly into /api/download?id=list
+ (optional) (default to null)
 
 DefaultApi *apiInstance = [[DefaultApi alloc] init];
 
 // A list of data objects
-[apiInstance icoscp.getDataWith:id
+[apiInstance icoscp.getDataWith:bb
+    country:country
+    id:id
     theme:theme
     startDate:startDate
     endDate:endDate
     variable:variable
     limit:limit
+    stationId:stationId
+    format:format
               completionHandler: ^(NSError* error) {
                             if (error) {
                                 NSLog(@"Error: %@", error);
@@ -1355,7 +1398,13 @@ DefaultApi *apiInstance = [[DefaultApi alloc] init];
 
 var api = new Icos.DefaultApi()
 var opts = {
-  'id': id_example, // {String} please provide a vlid digital object id to download data
+  'bb': , // {array[BigDecimal]} BoundingBox. If you provide latitude and longitude of the top left corner and bottom right corner of a box, you will get a list of icos stations within that box.
+Example: api/stations?bb=[50,-10, 30, 15]
+  'country': country_example, // {String} Returns a list of stations for a specific country.
+https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#WO
+  'id': id_example, // {String} Provide a valid digital object id. In return you will get the meta data
+information about the dataset. If yo want to download the data itself 
+including the meta data, you need to call /api/download?id=1234
   'theme': theme_example, // {String} This is a filter for data belonging to:
 - ATC (atmosphere)
 - ETC (ecosystem)
@@ -1366,7 +1415,13 @@ var opts = {
   'variable': variable_example, // {String} This is a full list of variables collected from the ICOS stations.
 Depending on the THEME and CLASS of the station, not all the variables are
 available.
-  'limit': 56 // {Integer} You can limit the returned list to N entries.
+  'limit': 56, // {Integer} You can limit the returned list to N entries.
+
+  'stationId': stationId_example, // {String} You can search for data measured at a specific station.
+  'format': format_example // {String} By default you will get a list with meta data about the data objects.
+If you choose the output to be format=list
+you will get an array back, which can be used in the downlad part.
+You may feed this output directly into /api/download?id=list
 
 };
 
@@ -1399,7 +1454,13 @@ namespace Example
         {
             
             var apiInstance = new DefaultApi();
-            var id = id_example;  // String | please provide a vlid digital object id to download data (optional)  (default to null)
+            var bb = new array[BigDecimal](); // array[BigDecimal] | BoundingBox. If you provide latitude and longitude of the top left corner and bottom right corner of a box, you will get a list of icos stations within that box.
+Example: api/stations?bb=[50,-10, 30, 15] (optional)  (default to null)
+            var country = country_example;  // String | Returns a list of stations for a specific country.
+https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#WO (optional)  (default to null)
+            var id = id_example;  // String | Provide a valid digital object id. In return you will get the meta data
+information about the dataset. If yo want to download the data itself 
+including the meta data, you need to call /api/download?id=1234 (optional)  (default to null)
             var theme = theme_example;  // String | This is a filter for data belonging to:
 - ATC (atmosphere)
 - ETC (ecosystem)
@@ -1412,11 +1473,17 @@ Depending on the THEME and CLASS of the station, not all the variables are
 available. (optional)  (default to null)
             var limit = 56;  // Integer | You can limit the returned list to N entries.
  (optional)  (default to null)
+            var stationId = stationId_example;  // String | You can search for data measured at a specific station. (optional)  (default to null)
+            var format = format_example;  // String | By default you will get a list with meta data about the data objects.
+If you choose the output to be format=list
+you will get an array back, which can be used in the downlad part.
+You may feed this output directly into /api/download?id=list
+ (optional)  (default to null)
 
             try
             {
                 // A list of data objects
-                apiInstance.icoscp.getData(id, theme, startDate, endDate, variable, limit);
+                apiInstance.icoscp.getData(bb, country, id, theme, startDate, endDate, variable, limit, stationId, format);
             }
             catch (Exception e)
             {
@@ -1433,7 +1500,13 @@ available. (optional)  (default to null)
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api_instance = new OpenAPITools\Client\Api\DefaultApi();
-$id = id_example; // String | please provide a vlid digital object id to download data
+$bb = ; // array[BigDecimal] | BoundingBox. If you provide latitude and longitude of the top left corner and bottom right corner of a box, you will get a list of icos stations within that box.
+Example: api/stations?bb=[50,-10, 30, 15]
+$country = country_example; // String | Returns a list of stations for a specific country.
+https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#WO
+$id = id_example; // String | Provide a valid digital object id. In return you will get the meta data
+information about the dataset. If yo want to download the data itself 
+including the meta data, you need to call /api/download?id=1234
 $theme = theme_example; // String | This is a filter for data belonging to:
 - ATC (atmosphere)
 - ETC (ecosystem)
@@ -1446,9 +1519,15 @@ Depending on the THEME and CLASS of the station, not all the variables are
 available.
 $limit = 56; // Integer | You can limit the returned list to N entries.
 
+$stationId = stationId_example; // String | You can search for data measured at a specific station.
+$format = format_example; // String | By default you will get a list with meta data about the data objects.
+If you choose the output to be format=list
+you will get an array back, which can be used in the downlad part.
+You may feed this output directly into /api/download?id=list
+
 
 try {
-    $api_instance->icoscp.getData($id, $theme, $startDate, $endDate, $variable, $limit);
+    $api_instance->icoscp.getData($bb, $country, $id, $theme, $startDate, $endDate, $variable, $limit, $stationId, $format);
 } catch (Exception $e) {
     echo 'Exception when calling DefaultApi->icoscp.getData: ', $e->getMessage(), PHP_EOL;
 }
@@ -1461,7 +1540,13 @@ use WWW::OPenAPIClient::Configuration;
 use WWW::OPenAPIClient::DefaultApi;
 
 my $api_instance = WWW::OPenAPIClient::DefaultApi->new();
-my $id = id_example; # String | please provide a vlid digital object id to download data
+my $bb = []; # array[BigDecimal] | BoundingBox. If you provide latitude and longitude of the top left corner and bottom right corner of a box, you will get a list of icos stations within that box.
+Example: api/stations?bb=[50,-10, 30, 15]
+my $country = country_example; # String | Returns a list of stations for a specific country.
+https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#WO
+my $id = id_example; # String | Provide a valid digital object id. In return you will get the meta data
+information about the dataset. If yo want to download the data itself 
+including the meta data, you need to call /api/download?id=1234
 my $theme = theme_example; # String | This is a filter for data belonging to:
 - ATC (atmosphere)
 - ETC (ecosystem)
@@ -1474,9 +1559,15 @@ Depending on the THEME and CLASS of the station, not all the variables are
 available.
 my $limit = 56; # Integer | You can limit the returned list to N entries.
 
+my $stationId = stationId_example; # String | You can search for data measured at a specific station.
+my $format = format_example; # String | By default you will get a list with meta data about the data objects.
+If you choose the output to be format=list
+you will get an array back, which can be used in the downlad part.
+You may feed this output directly into /api/download?id=list
+
 
 eval { 
-    $api_instance->icoscp.getData(id => $id, theme => $theme, startDate => $startDate, endDate => $endDate, variable => $variable, limit => $limit);
+    $api_instance->icoscp.getData(bb => $bb, country => $country, id => $id, theme => $theme, startDate => $startDate, endDate => $endDate, variable => $variable, limit => $limit, stationId => $stationId, format => $format);
 };
 if ($@) {
     warn "Exception when calling DefaultApi->icoscp.getData: $@\n";
@@ -1492,7 +1583,13 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = openapi_client.DefaultApi()
-id = id_example # String | please provide a vlid digital object id to download data (optional) (default to null)
+bb =  # array[BigDecimal] | BoundingBox. If you provide latitude and longitude of the top left corner and bottom right corner of a box, you will get a list of icos stations within that box.
+Example: api/stations?bb=[50,-10, 30, 15] (optional) (default to null)
+country = country_example # String | Returns a list of stations for a specific country.
+https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#WO (optional) (default to null)
+id = id_example # String | Provide a valid digital object id. In return you will get the meta data
+information about the dataset. If yo want to download the data itself 
+including the meta data, you need to call /api/download?id=1234 (optional) (default to null)
 theme = theme_example # String | This is a filter for data belonging to:
 - ATC (atmosphere)
 - ETC (ecosystem)
@@ -1505,10 +1602,16 @@ Depending on the THEME and CLASS of the station, not all the variables are
 available. (optional) (default to null)
 limit = 56 # Integer | You can limit the returned list to N entries.
  (optional) (default to null)
+stationId = stationId_example # String | You can search for data measured at a specific station. (optional) (default to null)
+format = format_example # String | By default you will get a list with meta data about the data objects.
+If you choose the output to be format=list
+you will get an array back, which can be used in the downlad part.
+You may feed this output directly into /api/download?id=list
+ (optional) (default to null)
 
 try: 
     # A list of data objects
-    api_instance.icoscp/get_data(id=id, theme=theme, startDate=startDate, endDate=endDate, variable=variable, limit=limit)
+    api_instance.icoscp/get_data(bb=bb, country=country, id=id, theme=theme, startDate=startDate, endDate=endDate, variable=variable, limit=limit, stationId=stationId, format=format)
 except ApiException as e:
     print("Exception when calling DefaultApi->icoscp.getData: %s\n" % e)</code></pre>
                             </div>
@@ -1517,15 +1620,19 @@ except ApiException as e:
                               <pre class="prettyprint"><code class="language-rust">extern crate DefaultApi;
 
 pub fn main() {
+    let bb = ; // array[BigDecimal]
+    let country = country_example; // String
     let id = id_example; // String
     let theme = theme_example; // String
     let startDate = 56; // Integer
     let endDate = 56; // Integer
     let variable = variable_example; // String
     let limit = 56; // Integer
+    let stationId = stationId_example; // String
+    let format = format_example; // String
 
     let mut context = DefaultApi::Context::default();
-    let result = client.icoscp.getData(id, theme, startDate, endDate, variable, limit, &context).wait();
+    let result = client.icoscp.getData(bb, country, id, theme, startDate, endDate, variable, limit, stationId, format, &context).wait();
     println!("{:?}", result);
 
 }
@@ -1550,6 +1657,48 @@ pub fn main() {
                                 <th width="150px">Name</th>
                                 <th>Description</th>
                               </tr>
+                                <tr><td style="width:150px;">bb</td>
+<td>
+
+
+    <div id="d2e199_icoscp.getData_bb">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    array[BigDecimal]
+                </span>
+
+                    <div class="inner description marked">
+BoundingBox. If you provide latitude and longitude of the top left corner and bottom right corner of a box, you will get a list of icos stations within that box.
+Example: api/stations?bb&#x3D;[50,-10, 30, 15]
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">country</td>
+<td>
+
+
+    <div id="d2e199_icoscp.getData_country">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+Returns a list of stations for a specific country.
+https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#WO
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
                                 <tr><td style="width:150px;">id</td>
 <td>
 
@@ -1562,7 +1711,9 @@ pub fn main() {
                 </span>
 
                     <div class="inner description marked">
-please provide a vlid digital object id to download data
+Provide a valid digital object id. In return you will get the meta data
+information about the dataset. If yo want to download the data itself 
+including the meta data, you need to call /api/download?id&#x3D;1234
                     </div>
             </div>
         </div>
@@ -1686,13 +1837,57 @@ You can limit the returned list to N entries.
 </td>
 </tr>
 
+                                <tr><td style="width:150px;">stationId</td>
+<td>
+
+
+    <div id="d2e199_icoscp.getData_stationId">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+You can search for data measured at a specific station.
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">format</td>
+<td>
+
+
+    <div id="d2e199_icoscp.getData_format">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+By default you will get a list with meta data about the data objects.
+If you choose the output to be format&#x3D;list
+you will get an array back, which can be used in the downlad part.
+You may feed this output directly into /api/download?id&#x3D;list
+
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
                             </table>
 
                           <h2>Responses</h2>
                             <h3 id="examples-Default-icoscp.getData-title-200"></h3>
                             <p id="examples-Default-icoscp.getData-description-200" class="marked"></p>
                             <script>
-                              var responseDefault200_description = `OK`;
+                              var responseDefault200_description = `data object information`;
                               var responseDefault200_description_break = responseDefault200_description.indexOf('\n');
                               if (responseDefault200_description_break == -1) {
                                 $("#examples-Default-icoscp.getData-title-200").text("Status: 200 - " + responseDefault200_description);
@@ -1747,7 +1942,7 @@ You can limit the returned list to N entries.
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Default-icoscp.getDownload-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://127.0.0.1:9090/api/download?id=&format="</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://127.0.0.1:9090/api/download?id="</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Default-icoscp.getDownload-0-java">
                             <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
@@ -1763,14 +1958,13 @@ public class DefaultApiExample {
     public static void main(String[] args) {
         
         DefaultApi apiInstance = new DefaultApi();
-        array[Object] id = ; // array[Object] | Digital object identifier.Provide an array of id's in the form
-[id1, id2, id3]. For a single file you still need to provide an array, with
-only one entry [id1].
-        String format = format_example; // String | The files you download are normally combined with meta data, licence information
-citation strings, etc. Hence we will pack these files together.
-By default you get a zip file.
+        Object id = ; // Object | Please provide an array of digital object identifiers (PID) as single
+argument for one file, or an array for multiple files
+Example single file: /api/downlad?id=123456
+Example multi file: /api/downlad?id=[123456, 4362346, 32452345+, 1325415432lk3]
+
         try {
-            apiInstance.icoscp.getDownload(id, format);
+            apiInstance.icoscp.getDownload(id);
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#icoscp.getDownload");
             e.printStackTrace();
@@ -1786,14 +1980,13 @@ public class DefaultApiExample {
 
     public static void main(String[] args) {
         DefaultApi apiInstance = new DefaultApi();
-        array[Object] id = ; // array[Object] | Digital object identifier.Provide an array of id's in the form
-[id1, id2, id3]. For a single file you still need to provide an array, with
-only one entry [id1].
-        String format = format_example; // String | The files you download are normally combined with meta data, licence information
-citation strings, etc. Hence we will pack these files together.
-By default you get a zip file.
+        Object id = ; // Object | Please provide an array of digital object identifiers (PID) as single
+argument for one file, or an array for multiple files
+Example single file: /api/downlad?id=123456
+Example multi file: /api/downlad?id=[123456, 4362346, 32452345+, 1325415432lk3]
+
         try {
-            apiInstance.icoscp.getDownload(id, format);
+            apiInstance.icoscp.getDownload(id);
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#icoscp.getDownload");
             e.printStackTrace();
@@ -1806,18 +1999,16 @@ By default you get a zip file.
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
                             <div class="tab-pane" id="examples-Default-icoscp.getDownload-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">array[Object] *id = ; // Digital object identifier.Provide an array of id's in the form
-[id1, id2, id3]. For a single file you still need to provide an array, with
-only one entry [id1]. (default to null)
-String *format = format_example; // The files you download are normally combined with meta data, licence information
-citation strings, etc. Hence we will pack these files together.
-By default you get a zip file. (optional) (default to null)
+                              <pre class="prettyprint"><code class="language-cpp">Object *id = ; // Please provide an array of digital object identifiers (PID) as single
+argument for one file, or an array for multiple files
+Example single file: /api/downlad?id=123456
+Example multi file: /api/downlad?id=[123456, 4362346, 32452345+, 1325415432lk3]
+ (default to null)
 
 DefaultApi *apiInstance = [[DefaultApi alloc] init];
 
 // Download data
 [apiInstance icoscp.getDownloadWith:id
-    format:format
               completionHandler: ^(NSError* error) {
                             if (error) {
                                 NSLog(@"Error: %@", error);
@@ -1830,14 +2021,11 @@ DefaultApi *apiInstance = [[DefaultApi alloc] init];
                               <pre class="prettyprint"><code class="language-js">var Icos = require('icos');
 
 var api = new Icos.DefaultApi()
-var id = ; // {array[Object]} Digital object identifier.Provide an array of id's in the form
-[id1, id2, id3]. For a single file you still need to provide an array, with
-only one entry [id1].
-var opts = {
-  'format': format_example // {String} The files you download are normally combined with meta data, licence information
-citation strings, etc. Hence we will pack these files together.
-By default you get a zip file.
-};
+var id = ; // {Object} Please provide an array of digital object identifiers (PID) as single
+argument for one file, or an array for multiple files
+Example single file: /api/downlad?id=123456
+Example multi file: /api/downlad?id=[123456, 4362346, 32452345+, 1325415432lk3]
+
 
 var callback = function(error, data, response) {
   if (error) {
@@ -1846,7 +2034,7 @@ var callback = function(error, data, response) {
     console.log('API called successfully.');
   }
 };
-api.icoscp.getDownload(id, opts, callback);
+api.icoscp.getDownload(id, callback);
 </code></pre>
                             </div>
 
@@ -1868,17 +2056,16 @@ namespace Example
         {
             
             var apiInstance = new DefaultApi();
-            var id = new array[Object](); // array[Object] | Digital object identifier.Provide an array of id's in the form
-[id1, id2, id3]. For a single file you still need to provide an array, with
-only one entry [id1]. (default to null)
-            var format = format_example;  // String | The files you download are normally combined with meta data, licence information
-citation strings, etc. Hence we will pack these files together.
-By default you get a zip file. (optional)  (default to null)
+            var id = new Object(); // Object | Please provide an array of digital object identifiers (PID) as single
+argument for one file, or an array for multiple files
+Example single file: /api/downlad?id=123456
+Example multi file: /api/downlad?id=[123456, 4362346, 32452345+, 1325415432lk3]
+ (default to null)
 
             try
             {
                 // Download data
-                apiInstance.icoscp.getDownload(id, format);
+                apiInstance.icoscp.getDownload(id);
             }
             catch (Exception e)
             {
@@ -1895,15 +2082,14 @@ By default you get a zip file. (optional)  (default to null)
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api_instance = new OpenAPITools\Client\Api\DefaultApi();
-$id = ; // array[Object] | Digital object identifier.Provide an array of id's in the form
-[id1, id2, id3]. For a single file you still need to provide an array, with
-only one entry [id1].
-$format = format_example; // String | The files you download are normally combined with meta data, licence information
-citation strings, etc. Hence we will pack these files together.
-By default you get a zip file.
+$id = ; // Object | Please provide an array of digital object identifiers (PID) as single
+argument for one file, or an array for multiple files
+Example single file: /api/downlad?id=123456
+Example multi file: /api/downlad?id=[123456, 4362346, 32452345+, 1325415432lk3]
+
 
 try {
-    $api_instance->icoscp.getDownload($id, $format);
+    $api_instance->icoscp.getDownload($id);
 } catch (Exception $e) {
     echo 'Exception when calling DefaultApi->icoscp.getDownload: ', $e->getMessage(), PHP_EOL;
 }
@@ -1916,15 +2102,14 @@ use WWW::OPenAPIClient::Configuration;
 use WWW::OPenAPIClient::DefaultApi;
 
 my $api_instance = WWW::OPenAPIClient::DefaultApi->new();
-my $id = []; # array[Object] | Digital object identifier.Provide an array of id's in the form
-[id1, id2, id3]. For a single file you still need to provide an array, with
-only one entry [id1].
-my $format = format_example; # String | The files you download are normally combined with meta data, licence information
-citation strings, etc. Hence we will pack these files together.
-By default you get a zip file.
+my $id = ; # Object | Please provide an array of digital object identifiers (PID) as single
+argument for one file, or an array for multiple files
+Example single file: /api/downlad?id=123456
+Example multi file: /api/downlad?id=[123456, 4362346, 32452345+, 1325415432lk3]
+
 
 eval { 
-    $api_instance->icoscp.getDownload(id => $id, format => $format);
+    $api_instance->icoscp.getDownload(id => $id);
 };
 if ($@) {
     warn "Exception when calling DefaultApi->icoscp.getDownload: $@\n";
@@ -1940,16 +2125,15 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = openapi_client.DefaultApi()
-id =  # array[Object] | Digital object identifier.Provide an array of id's in the form
-[id1, id2, id3]. For a single file you still need to provide an array, with
-only one entry [id1]. (default to null)
-format = format_example # String | The files you download are normally combined with meta data, licence information
-citation strings, etc. Hence we will pack these files together.
-By default you get a zip file. (optional) (default to null)
+id =  # Object | Please provide an array of digital object identifiers (PID) as single
+argument for one file, or an array for multiple files
+Example single file: /api/downlad?id=123456
+Example multi file: /api/downlad?id=[123456, 4362346, 32452345+, 1325415432lk3]
+ (default to null)
 
 try: 
     # Download data
-    api_instance.icoscp/get_download(id, format=format)
+    api_instance.icoscp/get_download(id)
 except ApiException as e:
     print("Exception when calling DefaultApi->icoscp.getDownload: %s\n" % e)</code></pre>
                             </div>
@@ -1958,11 +2142,10 @@ except ApiException as e:
                               <pre class="prettyprint"><code class="language-rust">extern crate DefaultApi;
 
 pub fn main() {
-    let id = ; // array[Object]
-    let format = format_example; // String
+    let id = ; // Object
 
     let mut context = DefaultApi::Context::default();
-    let result = client.icoscp.getDownload(id, format, &context).wait();
+    let result = client.icoscp.getDownload(id, &context).wait();
     println!("{:?}", result);
 
 }
@@ -1995,40 +2178,20 @@ pub fn main() {
         <div class="json-schema-view">
             <div class="primitive">
                 <span class="type">
-                    array[Object]
+                    Object
                 </span>
 
                     <div class="inner description marked">
-Digital object identifier.Provide an array of id&#39;s in the form
-[id1, id2, id3]. For a single file you still need to provide an array, with
-only one entry [id1].
+Please provide an array of digital object identifiers (PID) as single
+argument for one file, or an array for multiple files
+Example single file: /api/downlad?id&#x3D;123456
+Example multi file: /api/downlad?id&#x3D;[123456, 4362346, 32452345+, 1325415432lk3]
+
                     </div>
             </div>
                 <div class="inner required">
                     Required
                 </div>
-        </div>
-    </div>
-</td>
-</tr>
-
-                                <tr><td style="width:150px;">format</td>
-<td>
-
-
-    <div id="d2e199_icoscp.getDownload_format">
-        <div class="json-schema-view">
-            <div class="primitive">
-                <span class="type">
-                    String
-                </span>
-
-                    <div class="inner description marked">
-The files you download are normally combined with meta data, licence information
-citation strings, etc. Hence we will pack these files together.
-By default you get a zip file.
-                    </div>
-            </div>
         </div>
     </div>
 </td>
@@ -2431,7 +2594,7 @@ OTC (Ocean), ETC (Ecosystem), ATC (Atmosphere).
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Default-icoscp.getStations-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://127.0.0.1:9090/api/stations?country=&id=&theme=&class=&bb="</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://127.0.0.1:9090/api/stations?country=&id=&theme=&bb="</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Default-icoscp.getStations-0-java">
                             <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
@@ -2454,14 +2617,10 @@ The landing page URL is returned with the parameter "url"
         String theme = theme_example; // String | ICOS has three main distinction of themes, where green hous gas measurments are collected:
 OTC (Ocean), ETC (Ecosystem), ATC (Atmosphere).
 
-        String class = class_example; // String | ICOS has two levels of station classifiction.
-Class 2: a minimum common set of variables for each theme are collected.
-Class 1: on top of Class 2, a defined extended set of variables is measured.
-
-        array[BigDecimal] bb = ; // array[BigDecimal] | bounding box. If you provide latitude and longitude of the top left corner and bottom right corner of a box, you will get a list of icos stations within that box.
+        array[BigDecimal] bb = ; // array[BigDecimal] | BoundingBox. If you provide latitude and longitude of the top left corner and bottom right corner of a box, you will get a list of icos stations within that box.
 Example: api/stations?bb=[50,-10, 30, 15]
         try {
-            apiInstance.icoscp.getStations(country, id, theme, class, bb);
+            apiInstance.icoscp.getStations(country, id, theme, bb);
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#icoscp.getStations");
             e.printStackTrace();
@@ -2484,14 +2643,10 @@ The landing page URL is returned with the parameter "url"
         String theme = theme_example; // String | ICOS has three main distinction of themes, where green hous gas measurments are collected:
 OTC (Ocean), ETC (Ecosystem), ATC (Atmosphere).
 
-        String class = class_example; // String | ICOS has two levels of station classifiction.
-Class 2: a minimum common set of variables for each theme are collected.
-Class 1: on top of Class 2, a defined extended set of variables is measured.
-
-        array[BigDecimal] bb = ; // array[BigDecimal] | bounding box. If you provide latitude and longitude of the top left corner and bottom right corner of a box, you will get a list of icos stations within that box.
+        array[BigDecimal] bb = ; // array[BigDecimal] | BoundingBox. If you provide latitude and longitude of the top left corner and bottom right corner of a box, you will get a list of icos stations within that box.
 Example: api/stations?bb=[50,-10, 30, 15]
         try {
-            apiInstance.icoscp.getStations(country, id, theme, class, bb);
+            apiInstance.icoscp.getStations(country, id, theme, bb);
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#icoscp.getStations");
             e.printStackTrace();
@@ -2511,11 +2666,7 @@ The landing page URL is returned with the parameter "url" (optional) (default to
 String *theme = theme_example; // ICOS has three main distinction of themes, where green hous gas measurments are collected:
 OTC (Ocean), ETC (Ecosystem), ATC (Atmosphere).
  (optional) (default to null)
-String *class = class_example; // ICOS has two levels of station classifiction.
-Class 2: a minimum common set of variables for each theme are collected.
-Class 1: on top of Class 2, a defined extended set of variables is measured.
- (optional) (default to null)
-array[BigDecimal] *bb = ; // bounding box. If you provide latitude and longitude of the top left corner and bottom right corner of a box, you will get a list of icos stations within that box.
+array[BigDecimal] *bb = ; // BoundingBox. If you provide latitude and longitude of the top left corner and bottom right corner of a box, you will get a list of icos stations within that box.
 Example: api/stations?bb=[50,-10, 30, 15] (optional) (default to null)
 
 DefaultApi *apiInstance = [[DefaultApi alloc] init];
@@ -2524,7 +2675,6 @@ DefaultApi *apiInstance = [[DefaultApi alloc] init];
 [apiInstance icoscp.getStationsWith:country
     id:id
     theme:theme
-    class:class
     bb:bb
               completionHandler: ^(NSError* error) {
                             if (error) {
@@ -2546,11 +2696,7 @@ The landing page URL is returned with the parameter "url"
   'theme': theme_example, // {String} ICOS has three main distinction of themes, where green hous gas measurments are collected:
 OTC (Ocean), ETC (Ecosystem), ATC (Atmosphere).
 
-  'class': class_example, // {String} ICOS has two levels of station classifiction.
-Class 2: a minimum common set of variables for each theme are collected.
-Class 1: on top of Class 2, a defined extended set of variables is measured.
-
-  'bb':  // {array[BigDecimal]} bounding box. If you provide latitude and longitude of the top left corner and bottom right corner of a box, you will get a list of icos stations within that box.
+  'bb':  // {array[BigDecimal]} BoundingBox. If you provide latitude and longitude of the top left corner and bottom right corner of a box, you will get a list of icos stations within that box.
 Example: api/stations?bb=[50,-10, 30, 15]
 };
 
@@ -2590,17 +2736,13 @@ The landing page URL is returned with the parameter "url" (optional)  (default t
             var theme = theme_example;  // String | ICOS has three main distinction of themes, where green hous gas measurments are collected:
 OTC (Ocean), ETC (Ecosystem), ATC (Atmosphere).
  (optional)  (default to null)
-            var class = class_example;  // String | ICOS has two levels of station classifiction.
-Class 2: a minimum common set of variables for each theme are collected.
-Class 1: on top of Class 2, a defined extended set of variables is measured.
- (optional)  (default to null)
-            var bb = new array[BigDecimal](); // array[BigDecimal] | bounding box. If you provide latitude and longitude of the top left corner and bottom right corner of a box, you will get a list of icos stations within that box.
+            var bb = new array[BigDecimal](); // array[BigDecimal] | BoundingBox. If you provide latitude and longitude of the top left corner and bottom right corner of a box, you will get a list of icos stations within that box.
 Example: api/stations?bb=[50,-10, 30, 15] (optional)  (default to null)
 
             try
             {
                 // A list of ICOS stations
-                apiInstance.icoscp.getStations(country, id, theme, class, bb);
+                apiInstance.icoscp.getStations(country, id, theme, bb);
             }
             catch (Exception e)
             {
@@ -2624,15 +2766,11 @@ The landing page URL is returned with the parameter "url"
 $theme = theme_example; // String | ICOS has three main distinction of themes, where green hous gas measurments are collected:
 OTC (Ocean), ETC (Ecosystem), ATC (Atmosphere).
 
-$class = class_example; // String | ICOS has two levels of station classifiction.
-Class 2: a minimum common set of variables for each theme are collected.
-Class 1: on top of Class 2, a defined extended set of variables is measured.
-
-$bb = ; // array[BigDecimal] | bounding box. If you provide latitude and longitude of the top left corner and bottom right corner of a box, you will get a list of icos stations within that box.
+$bb = ; // array[BigDecimal] | BoundingBox. If you provide latitude and longitude of the top left corner and bottom right corner of a box, you will get a list of icos stations within that box.
 Example: api/stations?bb=[50,-10, 30, 15]
 
 try {
-    $api_instance->icoscp.getStations($country, $id, $theme, $class, $bb);
+    $api_instance->icoscp.getStations($country, $id, $theme, $bb);
 } catch (Exception $e) {
     echo 'Exception when calling DefaultApi->icoscp.getStations: ', $e->getMessage(), PHP_EOL;
 }
@@ -2652,15 +2790,11 @@ The landing page URL is returned with the parameter "url"
 my $theme = theme_example; # String | ICOS has three main distinction of themes, where green hous gas measurments are collected:
 OTC (Ocean), ETC (Ecosystem), ATC (Atmosphere).
 
-my $class = class_example; # String | ICOS has two levels of station classifiction.
-Class 2: a minimum common set of variables for each theme are collected.
-Class 1: on top of Class 2, a defined extended set of variables is measured.
-
-my $bb = []; # array[BigDecimal] | bounding box. If you provide latitude and longitude of the top left corner and bottom right corner of a box, you will get a list of icos stations within that box.
+my $bb = []; # array[BigDecimal] | BoundingBox. If you provide latitude and longitude of the top left corner and bottom right corner of a box, you will get a list of icos stations within that box.
 Example: api/stations?bb=[50,-10, 30, 15]
 
 eval { 
-    $api_instance->icoscp.getStations(country => $country, id => $id, theme => $theme, class => $class, bb => $bb);
+    $api_instance->icoscp.getStations(country => $country, id => $id, theme => $theme, bb => $bb);
 };
 if ($@) {
     warn "Exception when calling DefaultApi->icoscp.getStations: $@\n";
@@ -2683,16 +2817,12 @@ The landing page URL is returned with the parameter "url" (optional) (default to
 theme = theme_example # String | ICOS has three main distinction of themes, where green hous gas measurments are collected:
 OTC (Ocean), ETC (Ecosystem), ATC (Atmosphere).
  (optional) (default to null)
-class = class_example # String | ICOS has two levels of station classifiction.
-Class 2: a minimum common set of variables for each theme are collected.
-Class 1: on top of Class 2, a defined extended set of variables is measured.
- (optional) (default to null)
-bb =  # array[BigDecimal] | bounding box. If you provide latitude and longitude of the top left corner and bottom right corner of a box, you will get a list of icos stations within that box.
+bb =  # array[BigDecimal] | BoundingBox. If you provide latitude and longitude of the top left corner and bottom right corner of a box, you will get a list of icos stations within that box.
 Example: api/stations?bb=[50,-10, 30, 15] (optional) (default to null)
 
 try: 
     # A list of ICOS stations
-    api_instance.icoscp/get_stations(country=country, id=id, theme=theme, class=class, bb=bb)
+    api_instance.icoscp/get_stations(country=country, id=id, theme=theme, bb=bb)
 except ApiException as e:
     print("Exception when calling DefaultApi->icoscp.getStations: %s\n" % e)</code></pre>
                             </div>
@@ -2704,11 +2834,10 @@ pub fn main() {
     let country = country_example; // String
     let id = id_example; // String
     let theme = theme_example; // String
-    let class = class_example; // String
     let bb = ; // array[BigDecimal]
 
     let mut context = DefaultApi::Context::default();
-    let result = client.icoscp.getStations(country, id, theme, class, bb, &context).wait();
+    let result = client.icoscp.getStations(country, id, theme, bb, &context).wait();
     println!("{:?}", result);
 
 }
@@ -2797,29 +2926,6 @@ OTC (Ocean), ETC (Ecosystem), ATC (Atmosphere).
 </td>
 </tr>
 
-                                <tr><td style="width:150px;">class</td>
-<td>
-
-
-    <div id="d2e199_icoscp.getStations_class">
-        <div class="json-schema-view">
-            <div class="primitive">
-                <span class="type">
-                    String
-                </span>
-
-                    <div class="inner description marked">
-ICOS has two levels of station classifiction.
-Class 2: a minimum common set of variables for each theme are collected.
-Class 1: on top of Class 2, a defined extended set of variables is measured.
-
-                    </div>
-            </div>
-        </div>
-    </div>
-</td>
-</tr>
-
                                 <tr><td style="width:150px;">bb</td>
 <td>
 
@@ -2832,7 +2938,7 @@ Class 1: on top of Class 2, a defined extended set of variables is measured.
                 </span>
 
                     <div class="inner description marked">
-bounding box. If you provide latitude and longitude of the top left corner and bottom right corner of a box, you will get a list of icos stations within that box.
+BoundingBox. If you provide latitude and longitude of the top left corner and bottom right corner of a box, you will get a list of icos stations within that box.
 Example: api/stations?bb&#x3D;[50,-10, 30, 15]
                     </div>
             </div>

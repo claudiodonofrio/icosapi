@@ -4,7 +4,7 @@
 """
     ICOS
 
-    Access to data and metadata from the european Integrated Carbon Observation System, ICOS. The Carbon Poral is a one stop shop for european high quality greenhouse gas measurements.  This API is for users who like to have an easy access to the most common data objects and information about the research stations.  # noqa: E501
+    Access to data and metadata from the european Integrated Carbon Observation System, ICOS. The Carbon Portal is a one stop shop for european high quality greenhouse gas measurements.  This API is for users who like to have an easy access to the most common data objects and information about the research stations. Please note,  that not all of the data objects and information is available through the API. For example we server only Level 2 data objects. If in doubt, please visit https://www.icos-cp.eu/about-icos-data to learn more.   # noqa: E501
 
     OpenAPI spec version: 0.1.0
     Contact: info@icos-cp.eu
