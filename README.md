@@ -19,3 +19,9 @@ The mockserver is implemented with python 3.7.2 and "connexion".
 
 
 
+The current version 0.1.0 of the specification is regardes as RFC to the ICOS Carbon Portal
+
+```javascript
+- [] @cp team meeting 2019/04/18 : A token or some sort of acceptance flag is required if data ist dowladed. The user needs to accept the ICOS data policy.
+
+```
