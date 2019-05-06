@@ -231,6 +231,64 @@
           "enum" : [ "list" ]
         }
       } ]
+    },
+    "/download/citation" : {
+      "summary" : "Download citation",
+      "description" : "Download citation only. By default a 'BibTex' string is provided. Alternative\nformats are available with the parameter ?format=",
+      "get" : {
+        "tags" : [ "citation" ],
+        "summary" : "Download citation",
+        "description" : "Download citation for a single specific data object. By default a \"BibTex\" file, \nalternative formats are available with the paramater ?format=",
+        "responses" : {
+          "200" : {
+            "description" : "ICOS_citation_downlaod"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "id",
+        "in" : "query",
+        "description" : "provide a single data object id",
+        "required" : true,
+        "schema" : { }
+      }, {
+        "name" : "format",
+        "in" : "query",
+        "description" : "Please define the desired format for the ctiation. If the parameter is not \nset, by default a \"Bibtex\" format is provided.",
+        "required" : false,
+        "schema" : {
+          "enum" : [ "BibTex", "Txt", "Json", "XML", "RisFormat" ]
+        }
+      } ]
+    },
+    "/download/metadata" : {
+      "summary" : "Download metadata",
+      "description" : "Download metadata only. By default a \"json\" object is provided. Alternative\nformat are available with the paramater ?format=",
+      "get" : {
+        "summary" : "Download metadata",
+        "description" : "Download metadata for a specific single data object. By default the \nformat is a \"json\" object, but alternative formats are provided by setting\nthe paramater ?format=\n",
+        "responses" : {
+          "200" : {
+            "description" : "ICOS_metadata_download"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "id",
+        "in" : "query",
+        "description" : "Id for a single specific data object.",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        }
+      }, {
+        "name" : "format",
+        "in" : "query",
+        "description" : "By default a json string is provided. Alternative you can choose a different\nformat. ",
+        "schema" : {
+          "enum" : [ "json", "xml", "txt", "turtle" ]
+        }
+      } ]
     }
   },
   "tags" : [ {
