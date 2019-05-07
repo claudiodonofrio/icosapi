@@ -23,6 +23,7 @@
       "summary" : "Return a list of data collections.",
       "description" : "A collection is a manually created assembly of data objects\nfor a specific theme, project or area of interest.\n\n",
       "get" : {
+        "tags" : [ "find" ],
         "summary" : "A list of data collections",
         "description" : "No parameters returns a list of collection id's with a short description\nfor each collection (what kind of data is included, size, data object id's.)",
         "operationId" : "icoscp.get_collections",
@@ -50,6 +51,7 @@
       "summary" : "Download data.",
       "description" : "Here you have acces to the measurements.\nYou can provide a single data object ID, or an array of ID's to download\nmultiple files with one call. You can retrieve the identifiers while searching\nfor datasets with (api/data/?format=list). See /api/data for more information.\n\nExample for single file download: \napi/download?id=123456\n\nExample for multi file download:\napi/download?id=[123456, 789123, 456123]",
       "get" : {
+        "tags" : [ "download" ],
         "summary" : "Download data",
         "description" : "Download specific data objects.",
         "operationId" : "icoscp.get_data",
@@ -71,6 +73,7 @@
       "summary" : "Return a list of certified ICOS stations.",
       "description" : "A data collection is a group of data object as an official ICOS release.\nContaining QA/QC observations from certified ICOS stations.",
       "get" : {
+        "tags" : [ "find" ],
         "summary" : "A list of ICOS stations",
         "description" : "without any parameters returns a list of all labeled and certified ICOS stations.",
         "operationId" : "icoscp.get_stations",
@@ -116,6 +119,7 @@
     "/stations/provisional" : {
       "summary" : "Return a list if stations currently in the labeling process.",
       "get" : {
+        "tags" : [ "find" ],
         "summary" : "Povisional ICOS stations",
         "description" : "get a list of icos stations in the labeling process",
         "operationId" : "icoscp.get_provisional_stations",
@@ -142,10 +146,10 @@
       } ]
     },
     "/download/citation" : {
-      "summary" : "Download citation",
+      "summary" : "Download citation.",
       "description" : "Download citation only. By default a 'BibTex' string is provided. Alternative\nformats are available with the parameter ?format=",
       "get" : {
-        "tags" : [ "citation" ],
+        "tags" : [ "download" ],
         "summary" : "Download citation",
         "description" : "Download citation for a single specific data object. By default a \"BibTex\" file, \nalternative formats are available with the paramater ?format=",
         "operationId" : "icoscp.get_citation",
@@ -175,6 +179,7 @@
       "summary" : "Download metadata",
       "description" : "Download metadata only. By default a \"json\" object is provided. Alternative\nformat are available with the paramater ?format=",
       "get" : {
+        "tags" : [ "download" ],
         "summary" : "Download metadata",
         "description" : "Download metadata for a specific single data object. By default the \nformat is a \"json\" object, but alternative formats are provided by setting\nthe paramater ?format=\n",
         "operationId" : "icoscp.get_metadata",
@@ -205,6 +210,7 @@
       "summary" : "Return a list of data objects.",
       "description" : "ICOS provides access to high quality greenhouse gas measurements across europe.\nYou may download and use  data for free, but don't forget to cite where the data\nis coming from.\n\n!! BE  AWARE \n\nThe ICOS API delivers only \"Level 2\" data objects by default.\nNear realtime data, raw data, etc is not supported with the REST API.\nYou can search for them in the online data portal. Please visit\nhttps://www.icos-cp.eu/data\n",
       "get" : {
+        "tags" : [ "find" ],
         "summary" : "A list of data objects",
         "description" : "Download a list of data objects or if you provide a valid data object ID, you\nget the information about that specific digital object.\nIf you don't set the paramater \"limit\", by default we set a limit of 25. \nIf you want \"all\" you need to set limit to -1. But be very careful, we have\nthousands of data objects.",
         "operationId" : "icoscp.find_data",
