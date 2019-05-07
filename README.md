@@ -14,7 +14,7 @@ generate server and client stubs can be found at https://openapi.tools/
 Documentation, python and scala code, for the ICOS Carbon Portal API was generated out of the box by 
 https://openapi-generator.tech/ and can be found in the folder /autogenerate/
 or rather the script to
-- verify the apicur
+- verify the api
 - create a folder with the generated files for python & scala
 - create html documentation in the folder docu
 
