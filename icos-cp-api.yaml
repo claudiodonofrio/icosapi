@@ -28,6 +28,8 @@ paths:
       for a specific theme, project or area of interest.
 
     get:
+      tags:
+      - find
       summary: A list of data collections
       description: |-
         No parameters returns a list of collection id's with a short description
@@ -58,6 +60,8 @@ paths:
       api/download?id=123456\n\nExample for multi file download:\napi/download?id=[123456,\
       \ 789123, 456123]"
     get:
+      tags:
+      - download
       summary: Download data
       description: Download specific data objects.
       operationId: icoscp.get_data
@@ -80,6 +84,8 @@ paths:
       A data collection is a group of data object as an official ICOS release.
       Containing QA/QC observations from certified ICOS stations.
     get:
+      tags:
+      - find
       summary: A list of ICOS stations
       description: without any parameters returns a list of all labeled and certified
         ICOS stations.
@@ -124,6 +130,8 @@ paths:
   /stations/provisional:
     summary: Return a list if stations currently in the labeling process.
     get:
+      tags:
+      - find
       summary: Povisional ICOS stations
       description: get a list of icos stations in the labeling process
       operationId: icoscp.get_provisional_stations
@@ -149,13 +157,13 @@ paths:
         - ETC
         - OTC
   /download/citation:
-    summary: Download citation
+    summary: Download citation.
     description: |-
       Download citation only. By default a 'BibTex' string is provided. Alternative
       formats are available with the parameter ?format=
     get:
       tags:
-      - citation
+      - download
       summary: Download citation
       description: "Download citation for a single specific data object. By default\
         \ a \"BibTex\" file, \nalternative formats are available with the paramater\
@@ -188,6 +196,8 @@ paths:
       Download metadata only. By default a "json" object is provided. Alternative
       format are available with the paramater ?format=
     get:
+      tags:
+      - download
       summary: Download metadata
       description: "Download metadata for a specific single data object. By default\
         \ the \nformat is a \"json\" object, but alternative formats are provided\
@@ -222,6 +232,8 @@ paths:
       \ is not supported with the REST API.\nYou can search for them in the online\
       \ data portal. Please visit\nhttps://www.icos-cp.eu/data\n"
     get:
+      tags:
+      - find
       summary: A list of data objects
       description: "Download a list of data objects or if you provide a valid data\
         \ object ID, you\nget the information about that specific digital object.\n\
