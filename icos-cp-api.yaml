@@ -34,7 +34,7 @@ paths:
       description: |-
         No parameters returns a list of collection id's with a short description
         for each collection (what kind of data is included, size, data object id's.)
-      operationId: icoscp.get_collections
+      operationId: icoscp.find_collections
       responses:
         200:
           description: data collection
@@ -89,7 +89,7 @@ paths:
       summary: A list of ICOS stations
       description: without any parameters returns a list of all labeled and certified
         ICOS stations.
-      operationId: icoscp.get_stations
+      operationId: icoscp.find_stations
       responses:
         200:
           description: ICOS certified stations
@@ -134,7 +134,7 @@ paths:
       - find
       summary: Povisional ICOS stations
       description: get a list of icos stations in the labeling process
-      operationId: icoscp.get_provisional_stations
+      operationId: icoscp.find_provisional_stations
       responses:
         200:
           description: provisional icos stations
