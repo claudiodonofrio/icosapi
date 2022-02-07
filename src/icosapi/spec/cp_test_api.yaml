@@ -1,0 +1,110 @@
+---
+openapi: 3.0.2
+info:
+  title: cp_test_api
+  version: 0.1.0
+  description: "Access to data and metadata from the european Integrated Carbon Observation\n\
+    System, ICOS. The Carbon Portal is a one stop shop for european high quality\n\
+    greenhouse gas measurements.\n\nThis API is for users who like to have an easy\
+    \ access to the most common\ndata objects and information about the research stations.\
+    \ Please note, \nthat not all of the data objects and information is available\
+    \ through the API.\nFor example we server only Level 2 data objects.\nIf in doubt,\
+    \ please visit https://www.icos-cp.eu/about-icos-data to learn more.\n"
+  contact:
+    name: ICOS Carbon Portal
+    url: https://www.icos-cp.eu
+    email: info@icos-cp.eu
+  license:
+    name: GNU AGPLv3
+    url: https://www.gnu.org/licenses/agpl.txt
+servers:
+- url: http://127.0.0.1:8080/api
+  description: local development server
+paths:
+  /station:
+    summary: Return a list of certified ICOS stations.
+    description: |-
+      All certified ICOS stations have a rich set of meta data and a landing
+      page. You can retrieve a list of ICOS stations.
+      A human readable interface is available at
+      https://www.icos-cp.eu/observations/station-network
+    get:
+      servers:
+      - url: http://127.0.0.1:8080/api/
+        description: ""
+      tags: []
+      parameters:
+      - examples:
+          Provide a country code as filter:
+            value: '''DE'''
+        name: country
+        description: |-
+          Returns a list of stations for a specific country.
+          https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#WO
+        schema:
+          type: string
+        in: query
+      - examples:
+          Return list in json format:
+            value: '''json'''
+        name: format
+        description: "Valid entries are: 'csv',  json', 'kml'\nBy default (if you\
+          \ don't provide the parameter) a csv file is returned. "
+        schema:
+          type: string
+        in: query
+      - examples:
+          theme:
+            value: '''OS'''
+        name: theme
+        description: |-
+          ICOS has three main distinction of themes, where green house gas measurments
+          are collected, namely Ocean, Ecosystem and Atmosphere. You can select stations
+          belonging to a theme with
+          'OS' for Ocean, 'ES' for Ecosystem or 'AS' for Atmosphere.
+        schema:
+          type: string
+        in: query
+      responses:
+        "200":
+          description: ICOS certified stations
+      operationId: cp.station
+      summary: A list of ICOS stations
+      description: |-
+        Returns a list of ICOS stations.
+        By default all ICOS stations are returen in form of a .csv file
+
+        A human readable interface is available at
+        https://www.icos-cp.eu/observations/station-network
+  /pid:
+    summary: Get all meta data for a PID
+    description: |-
+      All ICOS data objects have a persistent identification.
+      Returned is a JSON formated text, containing information
+      about start and end date, geolocation, variables, units, etc.
+    get:
+      tags: []
+      parameters:
+      - name: pid
+        description: Provide an ICOS PID
+        schema:
+          type: string
+        in: query
+        required: true
+      responses:
+        "200":
+          description: PID Metadata returned
+      operationId: cp.pid
+      summary: Metadata for a persistent identifier
+      description: "A human readable interface to browse ICOS data is found at\nhttps://data.icos-cp.eu\
+        \ \nEach data object has a persitent identification.\n"
+    parameters:
+    - name: pid
+      description: Provide an ICOS PID
+      schema:
+        type: string
+      in: query
+      required: true
+tags:
+- name: ICOS
+  description: Integrated Carbon Obeservation System
