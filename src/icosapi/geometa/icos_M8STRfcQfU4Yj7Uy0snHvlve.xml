@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <gmd:MD_Metadata xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gml="http://www.opengis.net/gml" xmlns:gmx="http://www.isotc211.org/2005/gmx" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.isotc211.org/2005/gmd http://www.isotc211.org/2005/gmd/gmd.xsd http://www.isotc211.org/2005/gmx http://www.isotc211.org/2005/gmx/gmx.xsd">
   <gmd:fileIdentifier>
-    <gco:CharacterString>https://meta.icos-cp.eu/objects/M8STRfcQfU4Yj7Uy0snHvlve/meta.json</gco:CharacterString>
+    <gco:CharacterString>https://meta.icos-cp.eu/objects/M8STRfcQfU4Yj7Uy0snHvlve</gco:CharacterString>
   </gmd:fileIdentifier>
   <gmd:language>
     <gmd:LanguageCode codeList="http://www.loc.gov/standards/iso639-2/" codeSpace="ISO 639-2" codeListValue="en">en</gmd:LanguageCode>
@@ -215,7 +215,12 @@
       <gmd:resourceConstraints>
         <gmd:MD_LegalConstraints>
           <gmd:accessConstraints>
-            <gmd:MD_RestrictionCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_RestrictionCode" codeSpace="ISOTC211/19115" codeListValue="license">license</gmd:MD_RestrictionCode>
+            <gmd:MD_RestrictionCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_RestrictionCode" codeSpace="ISOTC211/19115" codeListValue="license">license
+			</gmd:MD_RestrictionCode>
+            <gmd:MD_RestrictionCode_license codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_RestrictionCode" codeSpace="ISOTC211/19115" codeListValue="identifier">https://data.icos-cp.eu/licence
+			</gmd:MD_RestrictionCode_license>
+            <gmd:MD_RestrictionCode_description codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_RestrictionCode" codeSpace="ISOTC211/19115" codeListValue="description">CC BY 4.0
+			</gmd:MD_RestrictionCode_description>
           </gmd:accessConstraints>
         </gmd:MD_LegalConstraints>
       </gmd:resourceConstraints>

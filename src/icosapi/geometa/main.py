@@ -17,6 +17,7 @@ import requests
 # choose ISO 19139 output schema
 from pygeometa.schemas.iso19139 import ISO19139OutputSchema as iso
 from pygeometa.schemas.iso19139_2 import ISO19139_2OutputSchema as iso2
+from pygeometa.schemas.iso19139_icos import ISO19139ICOSOutputSchema as iso_icos
 
 MCF = 'dobj.yml'
 
@@ -40,7 +41,7 @@ def pid_meta(pid):
     pid = pid.split('/')[-1]
     url = f"https://meta.icos-cp.eu/objects/{pid}/meta.json"
     metadata = requests.get(url).json()
-    metadata['self'] = url
+    metadata['self'] = url.rsplit('/',1)[0]
     return metadata
 
 
@@ -147,9 +148,27 @@ def main(pid, fmt='iso19139'):
         xml = iso().write(meta)
     if fmt.lower() == 'iso19139_2':
         xml = iso2().write(meta)
+    if fmt.lower() == 'iso_icos':
+        xml = iso_icos().write(meta)
+        
     return xml
 
 if __name__ == '__main__':
     PID = 'M8STRfcQfU4Yj7Uy0snHvlve'
-    iso19139 = main(PID)
+    
+    #PID = '11676/WREaChiXhVOYRtgEvmayh6qy'
+    icos = main(PID, fmt='iso_icos')
+    ficos = f'icos_{PID}.xml'
+    with open(ficos, 'w') as f:
+        f.write(icos)
+    '''
+    iso19139 = main(PID)    
+    file1 = f'icos_iso19139_{PID}.xml'
+    with open(file1, 'w') as f:
+        f.write(iso19139)
+    
     iso19139_2 = main(PID, fmt='iso19139_2')
+    file2 = f'icos_iso19139_2_{PID}.xml'
+    with open(file2, 'w') as f:
+        f.write(iso19139_2)
+    '''

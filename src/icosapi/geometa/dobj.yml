@@ -42,12 +42,17 @@ identification:
               end: __replace
               #resolution: P1Y
     fees: None
-    accessconstraints: license
+    accessconstraints: license    
     rights:
         en: ICOS data is licensed under the Creative Commons Attribution 4.0 International licence (CC BY 4.0)
     url: __replace    
     status: completed
     maintenancefrequency: notPlanned
+
+licence:
+    identifier: https://data.icos-cp.eu/licence
+    description: CC BY 4.0
+    
 
 # platform metadata, applicable to iso19139-2 output
 acquisition:
