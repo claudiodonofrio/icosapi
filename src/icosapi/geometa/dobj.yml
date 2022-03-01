@@ -1,0 +1,91 @@
+mcf:
+    version: 1.0
+
+metadata:
+    identifier: __replace
+    #parentidentifier:
+    language: en
+    #language_alternate: 
+    charset: utf8    
+    hierarchylevel: dataset
+    datestamp: $date$
+    dataseturi: __replace
+
+spatial:
+    datatype: vector
+    geomtype: point
+
+identification:
+    doi: __replace
+    language: eng
+    charset: utf8
+    title:
+        en: __replace      
+    abstract:
+        en: __replace     
+    dates:
+        creation: __replace
+        #publication: 2000-09-01T00:00:00Z
+        #revision:
+    keywords:
+        default:
+            keywords:
+                en: [ICOS, greenhouse gas measurement, Europe, Carbon Portal]
+    topiccategory:        
+        - geoscientificInformation
+    extents:
+        spatial:
+            - bbox: __replace
+              crs: 4326
+        temporal:
+            - begin: __replace
+              end: __replace
+              #resolution: P1Y
+    fees: None
+    accessconstraints: license
+    rights:
+        en: ICOS data is licensed under the Creative Commons Attribution 4.0 International licence (CC BY 4.0)
+    url: __replace    
+    status: completed
+    maintenancefrequency: notPlanned
+
+# platform metadata, applicable to iso19139-2 output
+acquisition:
+    platforms:
+        - identifier: __replace
+          description: __replace
+          instruments:
+              - identifier: None
+                type: None
+
+contact:
+    pointOfContact: &contact_poc
+        organization: Lund University, Dept. Phys. Geography & Ecosystem Science, ICOS Carbon Portal
+        url: https://www.icos-cp.eu
+        individualname: Alex Vermeulen
+        positionname: Director of Carbon Portal
+        phone: +46 46 222 9298
+        fax: +46 46 222 9298
+        address: Sölvegatan12
+        city: Lund
+        administrativearea: Skane
+        postalcode: SE-22362
+        country: Sweden
+        email: info@icos-cp.eu
+        hoursofservice: 0900h - 1700h CST
+        contactinstructions: email
+
+distribution:
+    icos:
+        url: __replace
+        type: WWW:LINK
+        name: ICOS Carbon Portal
+        description:
+            en: __replace            
+        function: download
+
+dataquality:
+    scope:
+        level: dataset
+    lineage:
+        statement: This dataset contains measurements and observations created by the Integrated Carbon Observation System, ICOS, a European-wide greenhouse gas research infrastructure. ICOS produces standardised data on greenhouse gas concentrations in the atmosphere, as well as on carbon fluxes between the atmosphere, the earth and oceans.
